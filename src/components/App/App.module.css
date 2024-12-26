@@ -1,0 +1,8 @@
+.testStyle {
+  background-color: var(--screens-background-color);
+  color: var(--text-color);
+}
+
+.testColorText {
+  color: var(--create-board-btn-color);
+}
