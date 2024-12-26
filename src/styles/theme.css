@@ -1,0 +1,32 @@
+:root {
+  --screens-background-color: #ffffff1a;
+  --sidebar-background-color: #121212;
+  --header-background-color: #161616;
+  --text-color: #ffffff;
+  --create-board-btn-color: #bedbb0;
+  --scroll-background-color: #1f1f1f;
+  --scroll-btn-color: #121212;
+  --need-help-background-color: #1f1f1f;
+}
+
+[data-theme="light"] {
+  --screens-background-color: #f6f6f7;
+  --sidebar-background-color: #ffffff;
+  --header-background-color: #fcfcfc;
+  --text-color: #161616;
+  --create-board-btn-color: #bedbb0;
+  --scroll-background-color: #e8e8e8;
+  --scroll-btn-color: #1616161a;
+  --need-help-background-color: #f6f6f7;
+}
+
+[data-theme="violet"] {
+  --screens-background-color: #d6d8ff;
+  --sidebar-background-color: #5255bc;
+  --header-background-color: #ffffff;
+  --text-color: #161616;
+  --create-board-btn-color: #b8bcfd;
+  --scroll-background-color: #ffffff;
+  --scroll-btn-color: #b8bcfd;
+  --need-help-background-color: #ffffff80;
+}
