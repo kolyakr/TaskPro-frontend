@@ -5,6 +5,9 @@ import * as yup from "yup";
 import { yupResolver } from "@hookform/resolvers/yup";
 import styles from "./RegisterForm.module.css";
 import { Icon } from "../Icon/Icon";
+import { useAppDispatch, useAppSelector } from "../../hooks/auth";
+import { registerUser } from "../../redux/auth/operations";
+import { selectError } from "../../redux/auth/selectors";
 
 const registerSchema = yup.object().shape({
   name: yup.string().min(2).max(20).required(),
@@ -12,7 +15,7 @@ const registerSchema = yup.object().shape({
   password: yup.string().min(7).max(14).required(),
 });
 
-const RegisterForm = () => {
+const RegisterForm: React.FC = () => {
   const {
     register,
     handleSubmit,
@@ -25,14 +28,17 @@ const RegisterForm = () => {
     "password"
   );
 
+  const dispatch = useAppDispatch();
+  const authError = useAppSelector(selectError);
+
   const togglePasswordState = () => {
     setPasswordState((prev) => {
       return prev === "password" ? "text" : "password";
     });
   };
 
-  const onSubmit = (data: registerFormData) => {
-    console.log(data);
+  const onSubmit = async (data: registerFormData) => {
+    await dispatch(registerUser(data));
   };
 
   return (
@@ -61,7 +67,10 @@ const RegisterForm = () => {
             <Icon id="eye" size={18} />
           </div>
         </div>
-        <p className={styles.formError}> {errors?.password?.message}</p>
+        <p className={styles.formError}>
+          {" "}
+          {errors?.password?.message ?? authError}
+        </p>
       </div>
       <button className={styles.submitBtn} type="submit">
         Register Now
