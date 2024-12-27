@@ -1,0 +1,32 @@
+.cont {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: 100vh;
+}
+.formCont {
+  display: flex;
+  flex-direction: column;
+  background-color: #151515;
+  padding: 40px;
+  border-radius: 8px;
+  max-width: 429px;
+  width: 100%;
+  justify-content: space-between;
+}
+.formNavCont {
+  display: flex;
+  gap: 14px;
+  margin-bottom: 40px;
+}
+.formLink,
+.activeLink {
+  font-size: 18px;
+  font-weight: 500;
+  line-height: 27px;
+  letter-spacing: -0.02em;
+  color: #ffffff4d;
+}
+.activeLink {
+  color: #ffffff;
+}
