@@ -68,7 +68,6 @@ const RegisterForm: React.FC = () => {
           </div>
         </div>
         <p className={styles.formError}>
-          {" "}
           {errors?.password?.message ?? authError}
         </p>
       </div>

@@ -5,6 +5,9 @@ import * as yup from "yup";
 import { yupResolver } from "@hookform/resolvers/yup";
 import styles from "./LoginForm.module.css";
 import { Icon } from "../Icon/Icon";
+import { useAppDispatch, useAppSelector } from "../../hooks/auth";
+import { selectError } from "../../redux/auth/selectors";
+import { loginUser } from "../../redux/auth/operations";
 
 const loginSchema = yup.object().shape({
   email: yup.string().email().required(),
@@ -24,14 +27,17 @@ const LoginForm = () => {
     "password"
   );
 
+  const dispatch = useAppDispatch();
+  const authError = useAppSelector(selectError);
+
   const togglePasswordState = () => {
     setPasswordState((prev: "text" | "password") => {
       return prev === "text" ? "password" : "text";
     });
   };
 
-  const onSubmit = (data: loginFormData) => {
-    console.log(data);
+  const onSubmit = async (data: loginFormData) => {
+    await dispatch(loginUser(data));
   };
 
   return (
@@ -59,8 +65,12 @@ const LoginForm = () => {
           <Icon id="eye" size={18} />
         </div>
       </div>
-      <p className={errors?.email ? styles.formError : styles.noFormError}>
-        {errors?.password?.message}
+      <p
+        className={
+          errors?.email || authError ? styles.formError : styles.noFormError
+        }
+      >
+        {errors?.password?.message ?? authError}
       </p>
       <button className={styles.submitBtn} type="submit">
         Log in now

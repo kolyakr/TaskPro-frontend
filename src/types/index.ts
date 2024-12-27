@@ -26,3 +26,8 @@ export interface ErrorServerResponse {
   status: number | string;
   message: string;
 }
+
+export interface LoginUserResponse {
+  user: User;
+  accessToken: string;
+}

@@ -1,15 +1,20 @@
 import { createAsyncThunk } from "@reduxjs/toolkit";
-import { ErrorServerResponse, registerFormData, User } from "../../types";
+import {
+  ErrorServerResponse,
+  loginFormData,
+  LoginUserResponse,
+  registerFormData,
+} from "../../types";
 import { instance } from "../../service/api";
 import axios from "axios";
 
 export const registerUser = createAsyncThunk<
-  User,
+  LoginUserResponse,
   registerFormData,
   {
     rejectValue: ErrorServerResponse | undefined;
   }
->("auth/register", async (registerData, { rejectWithValue }) => {
+>("auth/login", async (registerData, { rejectWithValue }) => {
   try {
     registerData = {
       ...registerData,
@@ -23,9 +28,36 @@ export const registerUser = createAsyncThunk<
       avatar,
       theme,
     };
-    return user;
+
+    const response = await instance.post("/auth/login", {
+      email: registerData.email,
+      password: registerData.password,
+    });
+    const accessToken = response.data.data.accessToken;
+
+    return { user, accessToken };
   } catch (err) {
     if (axios.isAxiosError(err) && err.response) {
+      return rejectWithValue(err.response.data);
+    }
+
+    throw err;
+  }
+});
+
+export const loginUser = createAsyncThunk<
+  LoginUserResponse,
+  loginFormData,
+  {
+    rejectValue: ErrorServerResponse | undefined;
+  }
+>("auth/login", async (loginData, { rejectWithValue }) => {
+  try {
+    const { data } = await instance.post("auth/login", loginData);
+    const { user, accessToken } = data.data;
+    return { user, accessToken };
+  } catch (err) {
+    if (axios.isAxiosError(err) && err?.response) {
       return rejectWithValue(err.response.data);
     }
 
