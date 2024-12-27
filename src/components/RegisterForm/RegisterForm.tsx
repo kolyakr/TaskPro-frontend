@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { useForm } from "react-hook-form";
 import { registerFormData } from "../../types";
 import * as yup from "yup";
@@ -7,7 +7,8 @@ import styles from "./RegisterForm.module.css";
 import { Icon } from "../Icon/Icon";
 import { useAppDispatch, useAppSelector } from "../../hooks/auth";
 import { registerUser } from "../../redux/auth/operations";
-import { selectError } from "../../redux/auth/selectors";
+import { selectError, selectIsLoggedIn } from "../../redux/auth/selectors";
+import { useNavigate } from "react-router-dom";
 
 const registerSchema = yup.object().shape({
   name: yup.string().min(2).max(20).required(),
@@ -27,9 +28,16 @@ const RegisterForm: React.FC = () => {
   const [passwordState, setPasswordState] = useState<"text" | "password">(
     "password"
   );
+  const isLoggedIn = useAppSelector(selectIsLoggedIn);
+  useEffect(() => {
+    if (isLoggedIn) {
+      navigate("/home");
+    }
+  }, [isLoggedIn]);
 
   const dispatch = useAppDispatch();
   const authError = useAppSelector(selectError);
+  const navigate = useNavigate();
 
   const togglePasswordState = () => {
     setPasswordState((prev) => {

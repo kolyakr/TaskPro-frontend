@@ -15,3 +15,6 @@ export const selectIsLoading = (state: RootState) => {
 export const selectToken = (state: RootState) => {
   return state.auth.token;
 };
+export const selectIsLoggedIn = (state: RootState) => {
+  return state.auth.isLoggedIn;
+};

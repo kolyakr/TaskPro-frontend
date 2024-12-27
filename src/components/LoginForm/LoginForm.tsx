@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { useForm } from "react-hook-form";
 import { loginFormData } from "../../types";
 import * as yup from "yup";
@@ -6,8 +6,9 @@ import { yupResolver } from "@hookform/resolvers/yup";
 import styles from "./LoginForm.module.css";
 import { Icon } from "../Icon/Icon";
 import { useAppDispatch, useAppSelector } from "../../hooks/auth";
-import { selectError } from "../../redux/auth/selectors";
+import { selectError, selectIsLoggedIn } from "../../redux/auth/selectors";
 import { loginUser } from "../../redux/auth/operations";
+import { useNavigate } from "react-router-dom";
 
 const loginSchema = yup.object().shape({
   email: yup.string().email().required(),
@@ -27,8 +28,16 @@ const LoginForm = () => {
     "password"
   );
 
+  const isLoggedIn = useAppSelector(selectIsLoggedIn);
+  useEffect(() => {
+    if (isLoggedIn) {
+      navigate("/home");
+    }
+  }, [isLoggedIn]);
+
   const dispatch = useAppDispatch();
   const authError = useAppSelector(selectError);
+  const navigate = useNavigate();
 
   const togglePasswordState = () => {
     setPasswordState((prev: "text" | "password") => {
