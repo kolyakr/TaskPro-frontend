@@ -3,9 +3,14 @@ import { NavLink, useParams } from "react-router-dom";
 import LoginForm from "../../components/LoginForm/LoginForm";
 import RegisterForm from "../../components/RegisterForm/RegisterForm";
 import styles from "./AuthPage.module.css";
+import NotFoundPage from "../NotFoundPage/NotFoundPage";
 
 const AuthPage: React.FC = () => {
   const { id } = useParams();
+
+  if (id !== "register" && id !== "login") {
+    return <NotFoundPage />;
+  }
 
   return (
     <div className={styles.cont}>

@@ -5,6 +5,8 @@ import AuthPage from "./pages/AuthPage/AuthPage";
 import WelcomePage from "./pages/WelcomePage/WelcomePage";
 import PrivateRoute from "./components/PrivateRoute/PrivateRoute";
 import styles from "./App.module.css";
+import RestrictedRoute from "./components/RestrictedRoute/RestrictedRoute";
+import NotFoundPage from "./pages/NotFoundPage/NotFoundPage";
 
 const App: React.FC = () => {
   return (
@@ -18,7 +20,14 @@ const App: React.FC = () => {
             </PrivateRoute>
           }
         />
-        <Route path="/auth/:id" element={<AuthPage />} />
+        <Route
+          path="/auth/:id"
+          element={
+            <RestrictedRoute>
+              <AuthPage />
+            </RestrictedRoute>
+          }
+        />
         <Route path="/welcome" element={<WelcomePage />} />
         <Route
           path="/home/:boardName"
@@ -28,6 +37,7 @@ const App: React.FC = () => {
             </PrivateRoute>
           }
         ></Route>
+        <Route path="*" element={<NotFoundPage />} />
       </Routes>
     </div>
   );
