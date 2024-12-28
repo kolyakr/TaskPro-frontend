@@ -64,3 +64,21 @@ export const loginUser = createAsyncThunk<
     throw err;
   }
 });
+
+export const logoutUser = createAsyncThunk<
+  void,
+  void,
+  {
+    rejectValue: ErrorServerResponse | undefined;
+  }
+>("auth/logout", async (_, { rejectWithValue }) => {
+  try {
+    await instance.post("/auth/logout");
+  } catch (err) {
+    if (axios.isAxiosError(err) && err?.response) {
+      return rejectWithValue(err.response.data);
+    }
+
+    throw err;
+  }
+});

@@ -1,8 +1,15 @@
-.cont {
+.page {
   display: flex;
   align-items: center;
   justify-content: center;
   height: 100vh;
+  background: rgb(246, 246, 247);
+  background: linear-gradient(
+    180deg,
+    rgba(246, 246, 247, 1) 0%,
+    rgba(163, 215, 151, 1) 92%
+  );
+  color: #161616;
 }
 .formCont {
   display: flex;

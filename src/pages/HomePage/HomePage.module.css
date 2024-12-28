@@ -1,0 +1,5 @@
+.page {
+  height: 100vh;
+  background-color: var(--screens-background-color);
+  display: flex;
+}

@@ -13,7 +13,7 @@ const AuthPage: React.FC = () => {
   }
 
   return (
-    <div className={styles.cont}>
+    <div className={styles.page}>
       <div className={styles.formCont}>
         <div className={styles.formNavCont}>
           <NavLink

@@ -6,7 +6,7 @@ import { NavLink } from "react-router-dom";
 
 const WelcomePage = () => {
   return (
-    <div className={styles.mainCont}>
+    <div className={styles.page}>
       <div className={styles.cont}>
         <div className={styles.logoImgCont}>
           <div className={styles.imageCont}>

@@ -1,0 +1,103 @@
+.sidebar {
+  background-color: var(--sidebar-background-color);
+  max-width: 260px;
+  width: 100%;
+  padding: 24px;
+}
+.logoCont {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  margin-bottom: 60px;
+}
+.logoName {
+  font-size: 16px;
+  font-weight: 600;
+  line-height: 24px;
+  letter-spacing: -0.04em;
+  text-align: left;
+}
+.boardsTitle {
+  font-size: 12px;
+  font-weight: 400;
+  line-height: 18px;
+  letter-spacing: -0.02em;
+  text-align: left;
+  color: #ffffff80;
+  margin-bottom: 8px;
+}
+.createBoardCont {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  border-top: 1px solid #ffffff1a;
+  border-bottom: 1px solid #ffffff1a;
+  padding-top: 14px;
+  padding-bottom: 14px;
+}
+.createBoardText {
+  max-width: 76px;
+  font-size: 14px;
+  font-weight: 500;
+  line-height: 21px;
+  letter-spacing: -0.02em;
+  text-align: left;
+}
+.needHelpCont {
+  max-width: 212px;
+  max-height: 272px;
+  padding: 20px;
+  border-radius: 8px;
+  background-color: var(--need-help-background-color);
+  margin-bottom: 24px;
+}
+.smilingTreeImg {
+  margin-bottom: 14px;
+}
+.needHelpDescr,
+.needhelpDescrSpan {
+  font-size: 14px;
+  font-weight: 400;
+  line-height: 20px;
+  letter-spacing: -0.02em;
+  text-align: left;
+  margin-bottom: 18px;
+}
+.needhelpDescrSpan {
+  color: var(--create-board-btn-color);
+}
+.needHelpIconCont {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+.needHelpText {
+  font-size: 12px;
+  font-weight: 500;
+  line-height: 18px;
+  letter-spacing: -0.02em;
+  text-align: left;
+}
+.logoutCont {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  margin-bottom: 24px;
+  cursor: pointer;
+  max-width: 105px;
+}
+
+.logoutText {
+  font-size: 16px;
+  font-weight: 500;
+  line-height: 24px;
+  text-align: left;
+}
+
+.wrapCont {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  max-height: 630px;
+  height: 100%;
+}
