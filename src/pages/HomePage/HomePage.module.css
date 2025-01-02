@@ -3,3 +3,8 @@
   background-color: var(--screens-background-color);
   display: flex;
 }
+.mainCont {
+  display: flex;
+  flex-direction: column;
+  flex: 1;
+}

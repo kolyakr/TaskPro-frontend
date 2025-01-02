@@ -79,5 +79,8 @@
 <path fill="none" stroke="#fff" style="stroke: var(--color1, #fff)" stroke-linejoin="round" stroke-linecap="round" stroke-miterlimit="4" stroke-width="2.88" d="M12.12 12c0.313-0.891 0.932-1.643 1.747-2.121s1.772-0.654 2.703-0.494c0.931 0.16 1.776 0.644 2.384 1.366s0.941 1.637 0.94 2.582c0 2.667-4 4-4 4"></path>
 <path fill="none" stroke="#fff" style="stroke: var(--color1, #fff)" stroke-linejoin="round" stroke-linecap="round" stroke-miterlimit="4" stroke-width="2.88" d="M16 22.667h0.020"></path>
 </symbol>
+<symbol id="icon-chevron-down" viewBox="0 0 30 32">
+<path fill="none" stroke="#fff" style="stroke: var(--color1, #fff)" stroke-linejoin="round" stroke-linecap="round" stroke-miterlimit="4" stroke-width="2.8235" d="M7.529 12.235l7.529 7.529 7.529-7.529"></path>
+</symbol>
 </defs>
 </svg>

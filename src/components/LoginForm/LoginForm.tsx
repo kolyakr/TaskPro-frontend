@@ -67,7 +67,7 @@ const LoginForm: React.FC = () => {
       </div>
       <p
         className={
-          errors?.email || authError ? styles.formError : styles.noFormError
+          errors?.password || authError ? styles.formError : styles.noFormError
         }
       >
         {errors?.password?.message ?? authError}

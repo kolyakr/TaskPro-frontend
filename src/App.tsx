@@ -10,7 +10,7 @@ import NotFoundPage from "./pages/NotFoundPage/NotFoundPage";
 
 const App: React.FC = () => {
   return (
-    <div data-theme="violet" className={styles.app}>
+    <div data-theme="dark" className={styles.app}>
       <Routes>
         <Route
           path="/home"

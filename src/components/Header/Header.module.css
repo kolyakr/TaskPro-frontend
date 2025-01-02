@@ -1,0 +1,44 @@
+.header {
+  display: flex;
+  max-height: 68px;
+  background-color: var(--header-background-color);
+  width: 100%;
+  display: flex;
+  justify-content: flex-end;
+  padding: 18px 24px;
+}
+.headerCont {
+  display: flex;
+  gap: 14px;
+}
+.themeCont {
+  display: flex;
+  gap: 4px;
+  align-items: center;
+}
+.themeText {
+  font-size: 14px;
+  font-weight: 500;
+  line-height: 21px;
+  letter-spacing: -0.02em;
+  text-align: left;
+}
+.nameCont {
+  display: flex;
+  gap: 8px;
+  align-items: center;
+}
+.nameText {
+  font-size: 14px;
+  font-weight: 500;
+  line-height: 21px;
+  letter-spacing: -0.02em;
+  text-align: left;
+}
+.avatarCont {
+  max-width: 32px;
+  max-height: 32px;
+}
+.avatar {
+  width: 100%;
+}

@@ -8,10 +8,10 @@ const HomePage = () => {
   return (
     <div className={styles.page}>
       <Sidebar />
-      <>
+      <div className={styles.mainCont}>
         <Header />
         <ScreensPage />
-      </>
+      </div>
     </div>
   );
 };
