@@ -1,0 +1,29 @@
+.page {
+  height: 100vh;
+  display: flex;
+  background-color: black;
+}
+.mainCont {
+  display: flex;
+  flex-direction: column;
+  flex: 1;
+}
+
+.sidebar {
+  max-width: 260px;
+  width: 100%;
+  padding: 24px;
+  height: 100%;
+}
+
+.header {
+  max-height: 68px;
+  width: 100%;
+  padding: 18px 24px;
+  margin-bottom: 40px;
+}
+
+.main {
+  height: 100%;
+  padding: 14px 24px;
+}

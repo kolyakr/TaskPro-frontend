@@ -10,6 +10,7 @@ import NotFoundPage from "./pages/NotFoundPage/NotFoundPage";
 import { useAppDispatch, useAppSelector } from "./hooks/auth";
 import { selectToken, selectUser } from "./redux/auth/selectors";
 import { getUser } from "./redux/auth/operations";
+import RefreshPage from "./components/RefreshPage/RefreshPage";
 
 const App: React.FC = () => {
   const dispatch = useAppDispatch();
@@ -31,7 +32,7 @@ const App: React.FC = () => {
   }, [dispatch, token]);
 
   if (isRefreshing) {
-    return <>refreshing component</>;
+    return <RefreshPage />;
   }
 
   return (
