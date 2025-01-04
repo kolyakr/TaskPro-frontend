@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import { Route, Routes } from "react-router-dom";
 import HomePage from "./pages/HomePage/HomePage";
 import AuthPage from "./pages/AuthPage/AuthPage";
@@ -7,8 +7,32 @@ import PrivateRoute from "./components/PrivateRoute/PrivateRoute";
 import styles from "./App.module.css";
 import RestrictedRoute from "./components/RestrictedRoute/RestrictedRoute";
 import NotFoundPage from "./pages/NotFoundPage/NotFoundPage";
+import { useAppDispatch, useAppSelector } from "./hooks/auth";
+import { selectToken } from "./redux/auth/selectors";
+import { getUser } from "./redux/auth/operations";
 
 const App: React.FC = () => {
+  const dispatch = useAppDispatch();
+  const token = useAppSelector(selectToken);
+
+  const [isRefreshing, setIsRefreshing] = useState<boolean>(false);
+
+  useEffect(() => {
+    const getUserData = async () => {
+      if (token) {
+        setIsRefreshing(true);
+        await dispatch(getUser(token));
+      }
+      setIsRefreshing(false);
+    };
+
+    getUserData();
+  }, [dispatch, token]);
+
+  if (isRefreshing) {
+    return <>refreshing component</>;
+  }
+
   return (
     <div data-theme="dark" className={styles.app}>
       <Routes>
@@ -28,7 +52,14 @@ const App: React.FC = () => {
             </RestrictedRoute>
           }
         />
-        <Route path="/welcome" element={<WelcomePage />} />
+        <Route
+          path="/welcome"
+          element={
+            <RestrictedRoute>
+              <WelcomePage />
+            </RestrictedRoute>
+          }
+        />
         <Route
           path="/home/:boardName"
           element={

@@ -18,3 +18,6 @@ export const selectToken = (state: RootState) => {
 export const selectIsLoggedIn = (state: RootState) => {
   return state.auth.isLoggedIn;
 };
+export const selectIsRefreshing = (state: RootState) => {
+  return state.auth.isRefreshing;
+};

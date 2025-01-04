@@ -1,11 +1,12 @@
 import { createAsyncThunk } from "@reduxjs/toolkit";
 import {
   ErrorServerResponse,
+  GetUserResponse,
   loginFormData,
   LoginUserResponse,
   registerFormData,
 } from "../../types";
-import { instance } from "../../service/api";
+import { fetchUser, login, logout, refresh, register } from "../../service/api";
 import axios from "axios";
 
 export const registerUser = createAsyncThunk<
@@ -20,7 +21,7 @@ export const registerUser = createAsyncThunk<
       ...registerData,
       theme: "dark",
     };
-    const { data } = await instance.post("/auth/register", registerData);
+    const data = await register(registerData);
     const { name, email, avatar, theme } = data.data;
     const user = {
       name,
@@ -29,7 +30,7 @@ export const registerUser = createAsyncThunk<
       theme,
     };
 
-    const response = await instance.post("/auth/login", {
+    const response = await login({
       email: registerData.email,
       password: registerData.password,
     });
@@ -53,7 +54,7 @@ export const loginUser = createAsyncThunk<
   }
 >("auth/login", async (loginData, { rejectWithValue }) => {
   try {
-    const { data } = await instance.post("auth/login", loginData);
+    const data = await login(loginData);
     const { user, accessToken } = data.data;
     return { user, accessToken };
   } catch (err) {
@@ -73,10 +74,44 @@ export const logoutUser = createAsyncThunk<
   }
 >("auth/logout", async (_, { rejectWithValue }) => {
   try {
-    await instance.post("/auth/logout");
+    await logout();
   } catch (err) {
     if (axios.isAxiosError(err) && err?.response) {
       return rejectWithValue(err.response.data);
+    }
+
+    throw err;
+  }
+});
+
+export const getUser = createAsyncThunk<
+  GetUserResponse,
+  string,
+  {
+    rejectValue: ErrorServerResponse | undefined;
+  }
+>("auth/me", async (token, { rejectWithValue }) => {
+  try {
+    const data = await fetchUser(token);
+    return { user: data.data.user, token };
+  } catch (err) {
+    if (axios.isAxiosError(err)) {
+      if (err.response?.data?.message === "Token is expired") {
+        try {
+          const refreshResponse = await refresh();
+          const accessToken = refreshResponse.data.accessToken;
+          const data = await fetchUser(accessToken);
+          return { user: data.data.user, token: accessToken };
+        } catch (err) {
+          if (axios.isAxiosError(err)) {
+            return rejectWithValue(err.response?.data || "Refresh failed");
+          }
+
+          throw err;
+        }
+      } else {
+        return rejectWithValue(err.response?.data);
+      }
     }
 
     throw err;

@@ -19,6 +19,7 @@ export interface AuthState {
   user: User;
   token: string | null;
   isLoading: boolean;
+  isRefreshing: boolean;
   error: string | null;
   isLoggedIn: boolean;
 }
@@ -31,4 +32,9 @@ export interface ErrorServerResponse {
 export interface LoginUserResponse {
   user: User;
   accessToken: string;
+}
+
+export interface GetUserResponse {
+  user: User;
+  token: string;
 }
