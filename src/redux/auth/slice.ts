@@ -1,6 +1,11 @@
 import { createSlice } from "@reduxjs/toolkit";
 import { AuthState } from "../../types";
-import { getUser, loginUser, logoutUser } from "./operations";
+import {
+  getUser,
+  loginUser,
+  logoutUser,
+  updateUserProfile,
+} from "./operations";
 
 const INITIAL_STATE: AuthState = {
   user: {
@@ -57,6 +62,18 @@ export const slice = createSlice({
       .addCase(getUser.rejected, (state, action) => {
         state.error = action.payload?.message || null;
         state.isRefreshing = false;
+      })
+      .addCase(updateUserProfile.pending, (state) => {
+        state.error = null;
+        state.isLoading = true;
+      })
+      .addCase(updateUserProfile.fulfilled, (state, action) => {
+        state.user = action.payload;
+        state.isLoading = false;
+      })
+      .addCase(updateUserProfile.rejected, (state, action) => {
+        state.error = action.payload?.message || "Failed to update profile";
+        state.isLoading = false;
       });
   },
 });

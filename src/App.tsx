@@ -8,12 +8,13 @@ import styles from "./App.module.css";
 import RestrictedRoute from "./components/RestrictedRoute/RestrictedRoute";
 import NotFoundPage from "./pages/NotFoundPage/NotFoundPage";
 import { useAppDispatch, useAppSelector } from "./hooks/auth";
-import { selectToken } from "./redux/auth/selectors";
+import { selectToken, selectUser } from "./redux/auth/selectors";
 import { getUser } from "./redux/auth/operations";
 
 const App: React.FC = () => {
   const dispatch = useAppDispatch();
   const token = useAppSelector(selectToken);
+  const user = useAppSelector(selectUser);
 
   const [isRefreshing, setIsRefreshing] = useState<boolean>(false);
 
@@ -34,7 +35,7 @@ const App: React.FC = () => {
   }
 
   return (
-    <div data-theme="dark" className={styles.app}>
+    <div data-theme={user.theme} className={styles.app}>
       <Routes>
         <Route
           path="/home"

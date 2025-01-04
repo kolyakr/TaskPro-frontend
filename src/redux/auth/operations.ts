@@ -5,9 +5,19 @@ import {
   loginFormData,
   LoginUserResponse,
   registerFormData,
+  UpdateUserType,
+  User,
 } from "../../types";
-import { fetchUser, login, logout, refresh, register } from "../../service/api";
+import {
+  fetchUser,
+  login,
+  logout,
+  refresh,
+  register,
+  updateProfile,
+} from "../../service/api";
 import axios from "axios";
+import { RootState } from "../store";
 
 export const registerUser = createAsyncThunk<
   LoginUserResponse,
@@ -21,22 +31,16 @@ export const registerUser = createAsyncThunk<
       ...registerData,
       theme: "dark",
     };
-    const data = await register(registerData);
-    const { name, email, avatar, theme } = data.data;
-    const user = {
-      name,
-      email,
-      avatar,
-      theme,
-    };
+    const registerResponse = await register(registerData);
 
     const response = await login({
-      email: registerData.email,
+      email: registerResponse.data.email,
       password: registerData.password,
     });
-    const accessToken = response.data.data.accessToken;
 
-    return { user, accessToken };
+    console.log("after login: ", response);
+
+    return { user: response.data.user, accessToken: response.data.accessToken };
   } catch (err) {
     if (axios.isAxiosError(err) && err.response) {
       return rejectWithValue(err.response.data);
@@ -112,6 +116,29 @@ export const getUser = createAsyncThunk<
       } else {
         return rejectWithValue(err.response?.data);
       }
+    }
+
+    throw err;
+  }
+});
+
+export const updateUserProfile = createAsyncThunk<
+  User,
+  UpdateUserType,
+  {
+    rejectValue: ErrorServerResponse | undefined;
+  }
+>("auth/updateUserProfile", async (userData, { rejectWithValue, getState }) => {
+  try {
+    const state = getState() as RootState;
+    const token = state.auth.token;
+
+    const updatedUser = await updateProfile(userData, token);
+
+    return updatedUser.data.user;
+  } catch (err) {
+    if (axios.isAxiosError(err)) {
+      return rejectWithValue(err.response?.data);
     }
 
     throw err;
