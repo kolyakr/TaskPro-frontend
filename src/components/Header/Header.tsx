@@ -1,11 +1,10 @@
 import React, { useCallback, useEffect, useRef, useState } from "react";
 import { Icon } from "../Icon/Icon";
-import defaultAvatar from "../../assets/images/user.png";
 import styles from "./Header.module.css";
-import { useAppDispatch, useAppSelector } from "../../hooks/auth";
-import { selectUser } from "../../redux/auth/selectors";
+import { useAppDispatch } from "../../hooks/auth";
 import Dropdown from "../Dropdown/Dropdown";
 import { updateUserProfile } from "../../redux/auth/operations";
+import UserInfo from "../UserInfo/UserInfo";
 
 const Header: React.FC = () => {
   const dispatch = useAppDispatch();
@@ -52,8 +51,6 @@ const Header: React.FC = () => {
     };
   }, [isThemeOpen, handleClickOutside]);
 
-  const user = useAppSelector(selectUser);
-
   return (
     <header className={styles.header}>
       {isThemeOpen && (
@@ -74,16 +71,7 @@ const Header: React.FC = () => {
           <p className={styles.themeText}>Theme</p>
           <Icon id="chevron-down" size={16} />
         </div>
-        <div className={styles.nameCont}>
-          <p className={styles.nameText}>{user.name}</p>
-          <div className={styles.avatarCont}>
-            <img
-              className={styles.avatar}
-              src={defaultAvatar}
-              alt="User avatar"
-            />
-          </div>
-        </div>
+        <UserInfo />
       </div>
     </header>
   );

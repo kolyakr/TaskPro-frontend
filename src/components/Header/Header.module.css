@@ -25,25 +25,6 @@
   letter-spacing: -0.02em;
   text-align: left;
 }
-.nameCont {
-  display: flex;
-  gap: 8px;
-  align-items: center;
-}
-.nameText {
-  font-size: 14px;
-  font-weight: 500;
-  line-height: 21px;
-  letter-spacing: -0.02em;
-  text-align: left;
-}
-.avatarCont {
-  max-width: 32px;
-  max-height: 32px;
-}
-.avatar {
-  width: 100%;
-}
 .themeDropdown {
   position: absolute;
   right: 180px;

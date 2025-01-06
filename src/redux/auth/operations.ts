@@ -5,7 +5,6 @@ import {
   loginFormData,
   LoginUserResponse,
   registerFormData,
-  UpdateUserType,
   User,
 } from "../../types";
 import {
@@ -124,7 +123,7 @@ export const getUser = createAsyncThunk<
 
 export const updateUserProfile = createAsyncThunk<
   User,
-  UpdateUserType,
+  FormData,
   {
     rejectValue: ErrorServerResponse | undefined;
   }

@@ -1,5 +1,5 @@
 import axios from "axios";
-import { loginFormData, registerFormData, UpdateUserType } from "../types";
+import { loginFormData, registerFormData } from "../types";
 
 export const instance = axios.create({
   baseURL: "http://localhost:3000",
@@ -35,13 +35,11 @@ export const fetchUser = async (token: string) => {
   return data;
 };
 
-export const updateProfile = async (
-  user: UpdateUserType,
-  token: string | null
-) => {
-  const { data } = await instance.patch("/me/update", user, {
+export const updateProfile = async (body: FormData, token: string | null) => {
+  const { data } = await instance.patch("/me/update", body, {
     headers: {
       Authorization: `Bearer ${token}`,
+      "Content-Type": "multipart/form-data",
     },
   });
 

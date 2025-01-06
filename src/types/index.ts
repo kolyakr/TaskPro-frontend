@@ -38,11 +38,3 @@ export interface GetUserResponse {
   user: User;
   token: string;
 }
-
-export interface UpdateUserType {
-  name?: string;
-  email?: string;
-  avatar?: string;
-  password?: string;
-  theme?: string;
-}
