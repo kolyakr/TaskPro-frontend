@@ -11,6 +11,7 @@ import { useAppDispatch, useAppSelector } from "./hooks/auth";
 import { selectToken, selectUser } from "./redux/auth/selectors";
 import { getUser } from "./redux/auth/operations";
 import RefreshPage from "./components/RefreshPage/RefreshPage";
+import { Toaster } from "react-hot-toast";
 
 const App: React.FC = () => {
   const dispatch = useAppDispatch();
@@ -72,6 +73,7 @@ const App: React.FC = () => {
         ></Route>
         <Route path="*" element={<NotFoundPage />} />
       </Routes>
+      <Toaster position="top-center" reverseOrder={false} />
     </div>
   );
 };

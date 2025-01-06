@@ -1,3 +1,32 @@
 @import url("/src/styles/reset.css");
 @import url("https://fonts.googleapis.com/css2?family=Inter:ital,opsz,wght@0,14..32,100..900;1,14..32,100..900&family=Montserrat:ital,wght@0,100..900;1,100..900&family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap");
 @import url("/src/styles/theme.css");
+
+/* Стиль для прокрутки у WebKit-браузерах (Chrome, Safari, Edge) */
+.ReactModal__Content {
+  overflow-y: scroll; /* забезпечує вертикальну прокрутку */
+}
+
+/* Стиль для самого скролбару */
+.ReactModal__Content::-webkit-scrollbar {
+  width: 8px; /* Ширина скролбару */
+  height: 8px; /* Висота горизонтального скролбару */
+}
+
+/* Стиль для "тросика" скролбару */
+.ReactModal__Content::-webkit-scrollbar-thumb {
+  background-color: black; /* Колір "тросика" */
+  border-radius: 4px; /* Округлені кути */
+  border: 1px solid #f1f1f1; /* Можна додати рамку навколо "тросика" */
+}
+
+/* Стиль для "треку" скролбару */
+.ReactModal__Content::-webkit-scrollbar-track {
+  background: #f1f1f1; /* Колір фону для треку */
+  border-radius: 10px; /* Округлені кути */
+}
+
+/* Кастомний стиль для скролбару на ховері (коли наводите курсор на "тросик") */
+.ReactModal__Content::-webkit-scrollbar-thumb:hover {
+  background-color: #555; /* Колір "тросика" при ховері */
+}

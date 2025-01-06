@@ -67,6 +67,8 @@
   color: var(--create-board-btn-color);
 }
 .needHelpIconCont {
+  max-width: 94px;
+  cursor: pointer;
   display: flex;
   align-items: center;
   gap: 8px;

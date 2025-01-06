@@ -40,7 +40,7 @@ const ModalWindow: React.FC<ModalWindowProps> = ({
           overflowY: "auto",
           position: "relative",
           backgroundColor: "var(--modal-background-color)",
-          maxWidth: width || "0px",
+          maxWidth: width || "400px",
           maxHeight: height || "0px",
           width: "100%",
           height: "100%",

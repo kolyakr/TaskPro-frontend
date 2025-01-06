@@ -1,5 +1,6 @@
 import axios from "axios";
 import { loginFormData, registerFormData } from "../types";
+import { NeedHelpData } from "../components/NeedHelp/NeedHelp";
 
 export const instance = axios.create({
   baseURL: "http://localhost:3000",
@@ -44,4 +45,15 @@ export const updateProfile = async (body: FormData, token: string | null) => {
   });
 
   return data;
+};
+
+export const sendNeedHelpEmail = async (
+  payload: NeedHelpData,
+  token: string
+) => {
+  return await instance.post("/send-need-help-email", payload, {
+    headers: {
+      Authorization: `Bearer ${token}`,
+    },
+  });
 };

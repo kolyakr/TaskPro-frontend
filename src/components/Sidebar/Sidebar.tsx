@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import { Icon } from "../Icon/Icon";
 import smilingTree1x from "../../assets/images/smiling_tree-1x.png";
 import smilingTree2x from "../../assets/images/smiling_tree-2x.png";
@@ -6,12 +6,25 @@ import smilingTree2x from "../../assets/images/smiling_tree-2x.png";
 import styles from "./Sidebar.module.css";
 import { useAppDispatch } from "../../hooks/auth";
 import { logoutUser } from "../../redux/auth/operations";
+import NeedHelp from "../NeedHelp/NeedHelp";
+import ModalWindow from "../ModalWindow/ModalWindow";
 
 const Sidebar: React.FC = () => {
   const dispatch = useAppDispatch();
 
   const handleLogout = async () => {
     await dispatch(logoutUser());
+  };
+
+  const [isModalOpen, setIsModalOpen] = useState<boolean>(false);
+  const [isModalLoading, setIsModalLoading] = useState<boolean>(false);
+
+  const closeModal = () => {
+    setIsModalOpen(false);
+  };
+
+  const openModal = () => {
+    setIsModalOpen(true);
   };
 
   return (
@@ -43,7 +56,7 @@ const Sidebar: React.FC = () => {
               out our support resources or reach out to our customer support
               team.
             </div>
-            <div className={styles.needHelpIconCont}>
+            <div className={styles.needHelpIconCont} onClick={openModal}>
               <Icon id="help-circle" size={20} />
               <p className={styles.needHelpText}>Need help?</p>
             </div>
@@ -54,6 +67,19 @@ const Sidebar: React.FC = () => {
           </div>
         </div>
       </div>
+
+      <ModalWindow
+        isOpen={isModalOpen}
+        closeModal={closeModal}
+        formId="needHelpForm"
+        width="400px"
+        height="400px"
+        title="Need help"
+        submitBtnChildren={<p>Send</p>}
+        isLoading={isModalLoading}
+      >
+        <NeedHelp closeModal={closeModal} setIsLoading={setIsModalLoading} />
+      </ModalWindow>
     </aside>
   );
 };
