@@ -4,27 +4,43 @@ import smilingTree1x from "../../assets/images/smiling_tree-1x.png";
 import smilingTree2x from "../../assets/images/smiling_tree-2x.png";
 // import BoardsList from "../BoardsList/BoardsList";
 import styles from "./Sidebar.module.css";
-import { useAppDispatch } from "../../hooks/auth";
+import { useAppDispatch, useAppSelector } from "../../hooks/auth";
 import { logoutUser } from "../../redux/auth/operations";
 import NeedHelp from "../NeedHelp/NeedHelp";
 import ModalWindow from "../ModalWindow/ModalWindow";
+import CreateBoard from "../CreateBoard/CreateBoard";
+import { selectIsLoading } from "../../redux/boards/selectors";
+
+type ModalType = "need-help" | "create";
 
 const Sidebar: React.FC = () => {
   const dispatch = useAppDispatch();
+  const isLoading = useAppSelector(selectIsLoading);
 
   const handleLogout = async () => {
     await dispatch(logoutUser());
   };
 
-  const [isModalOpen, setIsModalOpen] = useState<boolean>(false);
+  const [isHelpModalOpen, setIsHelpModalOpen] = useState<boolean>(false);
+  const [isCreateModalOpen, setIsCreateModalOpen] = useState<boolean>(false);
   const [isModalLoading, setIsModalLoading] = useState<boolean>(false);
 
   const closeModal = () => {
-    setIsModalOpen(false);
+    if (isHelpModalOpen) {
+      setIsHelpModalOpen(false);
+    }
+    if (isCreateModalOpen) {
+      setIsCreateModalOpen(false);
+    }
   };
 
-  const openModal = () => {
-    setIsModalOpen(true);
+  const openModal = (modalName: ModalType) => {
+    if (modalName === "need-help") {
+      setIsHelpModalOpen(true);
+    }
+    if (modalName === "create") {
+      setIsCreateModalOpen(true);
+    }
   };
 
   return (
@@ -36,7 +52,10 @@ const Sidebar: React.FC = () => {
       <div className={styles.wrapCont}>
         <div>
           <p className={styles.boardsTitle}>My boards</p>
-          <div className={styles.createBoardCont}>
+          <div
+            className={styles.createBoardCont}
+            onClick={() => openModal("create")}
+          >
             <p className={styles.createBoardText}>Create a new board</p>
             <Icon id="add" size={36} />
           </div>
@@ -56,7 +75,10 @@ const Sidebar: React.FC = () => {
               out our support resources or reach out to our customer support
               team.
             </div>
-            <div className={styles.needHelpIconCont} onClick={openModal}>
+            <div
+              className={styles.needHelpIconCont}
+              onClick={() => openModal("need-help")}
+            >
               <Icon id="help-circle" size={20} />
               <p className={styles.needHelpText}>Need help?</p>
             </div>
@@ -69,7 +91,7 @@ const Sidebar: React.FC = () => {
       </div>
 
       <ModalWindow
-        isOpen={isModalOpen}
+        isOpen={isHelpModalOpen}
         closeModal={closeModal}
         formId="needHelpForm"
         width="400px"
@@ -79,6 +101,24 @@ const Sidebar: React.FC = () => {
         isLoading={isModalLoading}
       >
         <NeedHelp closeModal={closeModal} setIsLoading={setIsModalLoading} />
+      </ModalWindow>
+
+      <ModalWindow
+        isOpen={isCreateModalOpen}
+        closeModal={closeModal}
+        formId="createBoardForm"
+        width="350px"
+        height="433px"
+        title="New board"
+        submitBtnChildren={
+          <div className={styles.modalBtn}>
+            <Icon className={styles.addIcon} id="modal-plus" size={28} />
+            <p>Create</p>
+          </div>
+        }
+        isLoading={isLoading}
+      >
+        <CreateBoard closeModal={closeModal} />
       </ModalWindow>
     </aside>
   );

@@ -8,6 +8,8 @@
   --scroll-btn-color: #121212;
   --need-help-background-color: #1f1f1f;
   --modal-background-color: #151515;
+  --modal-add-btn-background-color: #161616;
+  --modal-add-btn-color: #ffffff;
 }
 
 [data-theme="light"] {
@@ -20,6 +22,8 @@
   --scroll-btn-color: #1616161a;
   --need-help-background-color: #f6f6f7;
   --modal-background-color: #fcfcfc;
+  --modal-add-btn-background-color: #161616;
+  --modal-add-btn-color: #ffffff;
 }
 
 [data-theme="violet"] {
@@ -32,4 +36,6 @@
   --scroll-btn-color: #b8bcfd;
   --need-help-background-color: #ffffff80;
   --modal-background-color: #fcfcfc;
+  --modal-add-btn-background-color: #ffffff;
+  --modal-add-btn-color: #161616;
 }

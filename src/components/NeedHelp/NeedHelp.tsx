@@ -78,12 +78,11 @@ const NeedHelp: React.FC<NeedHelpProps> = ({ closeModal, setIsLoading }) => {
         {...register("comment")}
         placeholder="Comment"
       ></textarea>
-      {errors.comment?.message ||
-        (sendingError && (
-          <p className={styles.formError}>
-            {sendingError || errors.comment?.message}
-          </p>
-        ))}
+      {(errors.comment?.message || sendingError) && (
+        <p className={styles.formError}>
+          {sendingError || errors.comment?.message}
+        </p>
+      )}
     </form>
   );
 };
