@@ -28,3 +28,13 @@ export const getBoardsService = async (token: string) => {
 
   return data;
 };
+
+export const deleteBoardService = async (boardId: string, token: string) => {
+  const { data } = await instance.delete(`/${boardId}`, {
+    headers: {
+      Authorization: `Bearer ${token}`,
+    },
+  });
+
+  return data;
+};

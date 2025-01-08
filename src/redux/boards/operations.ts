@@ -3,7 +3,11 @@ import { Board, CreateBoardData } from "../../types/boards";
 import { ErrorServerResponse } from "../../types";
 import axios from "axios";
 import { RootState } from "../store";
-import { createBoardService, getBoardsService } from "../../service/boards";
+import {
+  createBoardService,
+  deleteBoardService,
+  getBoardsService,
+} from "../../service/boards";
 
 export const createBoard = createAsyncThunk<
   Board,
@@ -57,6 +61,33 @@ export const getBoards = createAsyncThunk<
     const boards = data.boards;
 
     return boards;
+  } catch (err) {
+    if (axios.isAxiosError(err)) {
+      return rejectWithValue(err.response?.data);
+    }
+
+    throw err;
+  }
+});
+
+export const deleteBoard = createAsyncThunk<
+  string,
+  string,
+  {
+    rejectValue: ErrorServerResponse | undefined;
+  }
+>("boards/deleteBoard", async (boardId, { rejectWithValue, getState }) => {
+  try {
+    const store = getState() as RootState;
+    const token = store.auth.token;
+
+    if (!token) {
+      throw new Error();
+    }
+
+    await deleteBoardService(boardId, token);
+
+    return boardId;
   } catch (err) {
     if (axios.isAxiosError(err)) {
       return rejectWithValue(err.response?.data);

@@ -1,11 +1,16 @@
 import React from "react";
 import { Vortex } from "react-loader-spinner";
 
-const Loader: React.FC = () => {
+interface LoaderProps {
+  height?: string;
+  width?: string;
+}
+
+const Loader: React.FC<LoaderProps> = ({ height, width }) => {
   return (
     <Vortex
-      height="60"
-      width="60"
+      height={height || "60"}
+      width={width || "60"}
       ariaLabel="vortex-loading"
       wrapperStyle={{}}
       wrapperClass="vortex-wrapper"
