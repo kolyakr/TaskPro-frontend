@@ -18,3 +18,13 @@ export const createBoardService = async (
 
   return data;
 };
+
+export const getBoardsService = async (token: string) => {
+  const { data } = await instance.get("/", {
+    headers: {
+      Authorization: `Bearer ${token}`,
+    },
+  });
+
+  return data;
+};

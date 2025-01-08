@@ -3,7 +3,7 @@ import { Board, CreateBoardData } from "../../types/boards";
 import { ErrorServerResponse } from "../../types";
 import axios from "axios";
 import { RootState } from "../store";
-import { createBoardService } from "../../service/boards";
+import { createBoardService, getBoardsService } from "../../service/boards";
 
 export const createBoard = createAsyncThunk<
   Board,
@@ -32,10 +32,36 @@ export const createBoard = createAsyncThunk<
       return board;
     } catch (err) {
       if (axios.isAxiosError(err)) {
-        return rejectWithValue(err.response?.data || "Failed to create board");
+        return rejectWithValue(err.response?.data);
       }
 
       throw err;
     }
   }
 );
+
+export const getBoards = createAsyncThunk<
+  Board[],
+  void,
+  { rejectValue: ErrorServerResponse | undefined }
+>("boards/getBoards", async (_, { rejectWithValue, getState }) => {
+  try {
+    const store = getState() as RootState;
+    const token = store.auth.token;
+
+    if (token === null) {
+      throw new Error();
+    }
+
+    const { data } = await getBoardsService(token);
+    const boards = data.boards;
+
+    return boards;
+  } catch (err) {
+    if (axios.isAxiosError(err)) {
+      return rejectWithValue(err.response?.data);
+    }
+
+    throw err;
+  }
+});

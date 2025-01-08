@@ -10,6 +10,7 @@
   --modal-background-color: #151515;
   --modal-add-btn-background-color: #161616;
   --modal-add-btn-color: #ffffff;
+  --not-active-color: #ffffff80;
 }
 
 [data-theme="light"] {
@@ -24,6 +25,7 @@
   --modal-background-color: #fcfcfc;
   --modal-add-btn-background-color: #161616;
   --modal-add-btn-color: #ffffff;
+  --not-active-color: #ffffff80;
 }
 
 [data-theme="violet"] {
@@ -38,4 +40,5 @@
   --modal-background-color: #fcfcfc;
   --modal-add-btn-background-color: #ffffff;
   --modal-add-btn-color: #161616;
+  --not-active-color: #ffffff80;
 }

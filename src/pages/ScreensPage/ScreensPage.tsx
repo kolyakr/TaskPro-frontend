@@ -1,26 +1,19 @@
 import React from "react";
-import { Icon } from "../../components/Icon/Icon";
 import styles from "./ScreensPage.module.css";
+import { useParams } from "react-router-dom";
+import { useAppSelector } from "../../hooks/auth";
+import { selectBoard } from "../../redux/boards/selectors";
+import Filter from "../../components/Filter/Filter";
+import StartText from "../../components/StartText/StartText";
 
-const ScreensPage = () => {
+const ScreensPage: React.FC = () => {
+  const { boardId } = useParams();
+  const board = useAppSelector(selectBoard(boardId));
+
   return (
     <main className={styles.page}>
-      <div className={styles.filterSection}>
-        <p className={styles.boardName}></p>
-        <div className={styles.filterCont}>
-          <Icon id="filter" size={16} />
-          <p className={styles.filterText}>Filters</p>
-        </div>
-      </div>
-      <div className={styles.columnCont}>
-        <div className={styles.startText}>
-          Before starting your project, it is essential{" "}
-          <span className={styles.startTextSpan}>to create a board</span> to
-          visualize and track all the necessary tasks and milestones. This board
-          serves as a powerful tool to organize the workflow and ensure
-          effective collaboration among team members.
-        </div>
-      </div>
+      <Filter title={board?.title} />
+      {board ? <>{board.title}</> : <StartText />}
     </main>
   );
 };

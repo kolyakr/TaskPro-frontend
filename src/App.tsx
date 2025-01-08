@@ -64,7 +64,7 @@ const App: React.FC = () => {
           }
         />
         <Route
-          path="/home/:boardName"
+          path="/home/:boardId"
           element={
             <PrivateRoute>
               <HomePage />

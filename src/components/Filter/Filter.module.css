@@ -1,0 +1,26 @@
+.filterSection {
+  display: flex;
+  justify-content: space-between;
+  gap: 8px;
+  align-items: center;
+  margin-bottom: 10px;
+}
+.filterCont {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+.boardName {
+  font-size: 18px;
+  font-weight: 500;
+  line-height: 27px;
+  letter-spacing: -0.02em;
+  text-align: left;
+}
+.filterText {
+  font-size: 14px;
+  font-weight: 500;
+  line-height: 21px;
+  letter-spacing: -0.02em;
+  text-align: left;
+}

@@ -1,0 +1,64 @@
+.list {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+  max-height: 130px;
+  overflow-y: auto;
+  overflow-x: hidden;
+  direction: rtl;
+  padding: 0px 24px;
+  margin-right: -24px;
+  margin-left: -24px;
+}
+
+.list::-webkit-scrollbar {
+  width: 4px;
+}
+
+.list::-webkit-scrollbar-thumb {
+  background-color: var(--text-color);
+  border-radius: 10px;
+}
+
+.list::-webkit-scrollbar-track {
+  background-color: var(--sidebar-background-color);
+}
+
+.list li {
+  direction: ltr;
+  text-align: left;
+}
+
+.item {
+  box-sizing: border-box;
+  display: flex;
+  justify-content: space-between;
+  height: 61px;
+  min-height: 40px;
+  margin-right: -24px;
+  margin-left: -24px;
+  padding-left: 24px;
+  padding-right: 24px;
+}
+.selectedItem {
+  background-color: #1f1f1f;
+  border-right: 4px solid #bedbb0;
+  border-radius: 4px;
+}
+.titleCont,
+.actionsCont {
+  display: flex;
+  gap: 8px;
+  align-items: center;
+}
+.title {
+  font-size: 14px;
+  font-weight: 500;
+  line-height: 21px;
+  letter-spacing: -0.02em;
+  text-align: left;
+  color: var(--not-active-color);
+}
+.selectedTitle {
+  color: var(--text-color);
+}

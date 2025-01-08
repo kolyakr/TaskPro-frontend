@@ -1,15 +1,15 @@
 import { createSlice } from "@reduxjs/toolkit";
 import { Board } from "../../types/boards";
-import { createBoard } from "./operations";
+import { createBoard, getBoards } from "./operations";
 
 interface BoardsState {
-  board: Board | null;
+  boards: Board[];
   isLoading: boolean;
   error: string | null;
 }
 
 const INITIAL_STATE: BoardsState = {
-  board: null,
+  boards: [],
   isLoading: false,
   error: null,
 };
@@ -25,12 +25,24 @@ const slice = createSlice({
         state.error = null;
       })
       .addCase(createBoard.fulfilled, (state, action) => {
-        state.board = action.payload;
+        state.boards = [...state.boards, action.payload];
         state.isLoading = false;
       })
       .addCase(createBoard.rejected, (state, action) => {
         state.isLoading = false;
-        state.error = action.payload?.message || null;
+        state.error = action.payload?.message || "Failed to create board";
+      })
+      .addCase(getBoards.pending, (state) => {
+        state.isLoading = true;
+        state.error = null;
+      })
+      .addCase(getBoards.fulfilled, (state, action) => {
+        state.boards = action.payload;
+        state.isLoading = false;
+      })
+      .addCase(getBoards.rejected, (state, action) => {
+        state.error = action.payload?.message || "Failed to get boards";
+        state.isLoading = false;
       });
   },
 });

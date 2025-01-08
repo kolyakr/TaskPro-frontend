@@ -2,20 +2,22 @@ import React, { useState } from "react";
 import { Icon } from "../Icon/Icon";
 import smilingTree1x from "../../assets/images/smiling_tree-1x.png";
 import smilingTree2x from "../../assets/images/smiling_tree-2x.png";
-// import BoardsList from "../BoardsList/BoardsList";
+import BoardsList from "../BoardsList/BoardsList";
 import styles from "./Sidebar.module.css";
 import { useAppDispatch, useAppSelector } from "../../hooks/auth";
 import { logoutUser } from "../../redux/auth/operations";
 import NeedHelp from "../NeedHelp/NeedHelp";
 import ModalWindow from "../ModalWindow/ModalWindow";
 import CreateBoard from "../CreateBoard/CreateBoard";
-import { selectIsLoading } from "../../redux/boards/selectors";
+import { selectBoards, selectIsLoading } from "../../redux/boards/selectors";
 
 type ModalType = "need-help" | "create";
 
 const Sidebar: React.FC = () => {
   const dispatch = useAppDispatch();
+
   const isLoading = useAppSelector(selectIsLoading);
+  const boards = useAppSelector(selectBoards);
 
   const handleLogout = async () => {
     await dispatch(logoutUser());
@@ -60,7 +62,7 @@ const Sidebar: React.FC = () => {
             <Icon id="add" size={36} />
           </div>
         </div>
-        {/* <BoardsList /> */}
+        {boards && boards.length > 0 && <BoardsList />}
         <div>
           <div className={styles.needHelpCont}>
             <img
