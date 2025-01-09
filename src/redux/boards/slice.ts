@@ -1,6 +1,12 @@
 import { createSlice } from "@reduxjs/toolkit";
 import { Board } from "../../types/boards";
-import { createBoard, deleteBoard, editBoard, getBoards } from "./operations";
+import {
+  addColumn,
+  createBoard,
+  deleteBoard,
+  editBoard,
+  getBoards,
+} from "./operations";
 
 interface BoardsState {
   boards: Board[];
@@ -72,6 +78,24 @@ const slice = createSlice({
       })
       .addCase(editBoard.rejected, (state, action) => {
         state.error = action.payload?.message || "Failed to edit board";
+        state.isLoading = false;
+      })
+      .addCase(addColumn.pending, (state) => {
+        state.isLoading = true;
+        state.error = null;
+      })
+      .addCase(addColumn.fulfilled, (state, action) => {
+        state.boards = state.boards.map((board) => {
+          if (board.boardId === action.payload.boardId) {
+            board.columns = [...board.columns, action.payload.column];
+          }
+
+          return board;
+        });
+        state.isLoading = false;
+      })
+      .addCase(addColumn.rejected, (state, action) => {
+        state.error = action.payload?.message || "Failed to create column";
         state.isLoading = false;
       });
   },

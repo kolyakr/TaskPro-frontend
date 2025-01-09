@@ -59,7 +59,12 @@ const Sidebar: React.FC = () => {
             onClick={() => openModal("create")}
           >
             <p className={styles.createBoardText}>Create a new board</p>
-            <Icon id="add" size={36} />
+            <Icon
+              id="add"
+              size={36}
+              fill="var(--sidebar-add-btn-fill)"
+              stroke="var(--sidebar-add-btn-stroke)"
+            />
           </div>
         </div>
         {boards && boards.length > 0 && <BoardsList />}
@@ -114,7 +119,12 @@ const Sidebar: React.FC = () => {
         title="New board"
         submitBtnChildren={
           <div className={styles.modalBtn}>
-            <Icon className={styles.addIcon} id="modal-plus" size={28} />
+            <Icon
+              id="add"
+              fill="var(--modal-add-btn-fill)"
+              stroke="var(--modal-add-btn-stroke)"
+              size={28}
+            />
             <p>Create</p>
           </div>
         }

@@ -1,0 +1,27 @@
+.addBtn {
+  max-width: 334px;
+  width: 100%;
+  height: 56px;
+  padding: 14px 78px;
+  border-radius: 8px;
+  background-color: var(--add-column-color);
+  color: var(--text-color);
+}
+.addWrap {
+  display: flex;
+  gap: 8px;
+  align-items: center;
+}
+.addText {
+  font-size: 14px;
+  font-weight: 500;
+  line-height: 21px;
+  letter-spacing: -0.02em;
+  text-align: left;
+}
+.modalBtn {
+  display: flex;
+  gap: 8px;
+  align-items: center;
+  justify-content: center;
+}

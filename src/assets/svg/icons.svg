@@ -62,9 +62,9 @@
 <path fill="none" stroke="#bedbb0" style="stroke: var(--color3, #bedbb0)" stroke-linejoin="round" stroke-linecap="round" stroke-miterlimit="4" stroke-width="1.5" d="M16.867 11.533l4.467 4.467-4.467 4.467"></path>
 </symbol>
 <symbol id="icon-add" viewBox="0 0 36 32">
-<path fill="#bedbb0" style="fill: var(--color3, #bedbb0)" d="M5.333 0h24.889c2.946 0 5.333 2.388 5.333 5.333v21.333c0 2.946-2.388 5.333-5.333 5.333h-24.889c-2.946 0-5.333-2.388-5.333-5.333v-21.333c0-2.946 2.388-5.333 5.333-5.333z"></path>
-<path fill="none" stroke="#121212" style="stroke: var(--color5, #121212)" stroke-linejoin="round" stroke-linecap="round" stroke-miterlimit="4" stroke-width="1.6" d="M17.778 10.815v10.37"></path>
-<path fill="none" stroke="#121212" style="stroke: var(--color5, #121212)" stroke-linejoin="round" stroke-linecap="round" stroke-miterlimit="4" stroke-width="1.6" d="M12.592 16h10.37"></path>
+<path stroke="currentColor" d="M5.333 0h24.889c2.946 0 5.333 2.388 5.333 5.333v21.333c0 2.946-2.388 5.333-5.333 5.333h-24.889c-2.946 0-5.333-2.388-5.333-5.333v-21.333c0-2.946 2.388-5.333 5.333-5.333z"></path>
+<path fill="none" stroke-linejoin="round" stroke-linecap="round" stroke-miterlimit="4" stroke-width="1.6" d="M17.778 10.815v10.37"></path>
+<path fill="none"  stroke-linejoin="round" stroke-linecap="round" stroke-miterlimit="4" stroke-width="1.6" d="M12.592 16h10.37"></path>
 </symbol>
 <symbol id="icon-logo" viewBox="0 0 32 32">
 <path fill="#1f1f1f" style="fill: var(--color1, #1f1f1f)" d="M24 0h-16c-4.418 0-8 3.582-8 8v16c0 4.418 3.582 8 8 8h16c4.418 0 8-3.582 8-8v-16c0-4.418-3.582-8-8-8z"></path>

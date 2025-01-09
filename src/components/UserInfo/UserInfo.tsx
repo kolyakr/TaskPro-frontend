@@ -148,7 +148,12 @@ const UserInfo: React.FC = () => {
               alt="avatar"
             />
             <label htmlFor="photoInput" className={styles.addIcon}>
-              <Icon id="add" size={24} />
+              <Icon
+                id="add"
+                size={24}
+                fill="var(--sidebar-add-btn-fill)"
+                stroke="var(--sidebar-add-btn-stroke)"
+              />
             </label>
           </div>
           <input

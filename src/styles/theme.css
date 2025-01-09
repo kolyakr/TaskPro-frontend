@@ -11,6 +11,13 @@
   --modal-add-btn-background-color: #161616;
   --modal-add-btn-color: #ffffff;
   --not-active-color: #ffffff80;
+  --add-column-color: #121212;
+  --sidebar-add-btn-fill: #bedbb0;
+  --sidebar-add-btn-stroke: #121212;
+  --screens-page-add-btn-fill: #ffffff;
+  --screens-page-add-btn-stroke: #121212;
+  --modal-add-btn-fill: #161616;
+  --modal-add-btn-stroke: #ffffff;
 }
 
 [data-theme="light"] {
@@ -26,6 +33,13 @@
   --modal-add-btn-background-color: #161616;
   --modal-add-btn-color: #ffffff;
   --not-active-color: #ffffff80;
+  --add-column-color: #ffffff;
+  --sidebar-add-btn-fill: #bedbb0;
+  --sidebar-add-btn-stroke: #121212;
+  --screens-page-add-btn-fill: #161616;
+  --screens-page-add-btn-stroke: #ffffff;
+  --modal-add-btn-fill: #161616;
+  --modal-add-btn-stroke: #ffffff;
 }
 
 [data-theme="violet"] {
@@ -41,4 +55,11 @@
   --modal-add-btn-background-color: #ffffff;
   --modal-add-btn-color: #161616;
   --not-active-color: #ffffff80;
+  --add-column-color: #ffffff;
+  --sidebar-add-btn-fill: #b8bcfd;
+  --sidebar-add-btn-stroke: #ffffff;
+  --screens-page-add-btn-fill: #5255bc;
+  --screens-page-add-btn-stroke: #ffffff;
+  --modal-add-btn-fill: #ffffff;
+  --modal-add-btn-stroke: #5255bc;
 }

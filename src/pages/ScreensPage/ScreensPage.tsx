@@ -5,6 +5,7 @@ import { useAppSelector } from "../../hooks/auth";
 import { selectBoard } from "../../redux/boards/selectors";
 import Filter from "../../components/Filter/Filter";
 import StartText from "../../components/StartText/StartText";
+import Board from "../../components/Board/Board";
 
 const ScreensPage: React.FC = () => {
   const { boardId } = useParams();
@@ -13,7 +14,7 @@ const ScreensPage: React.FC = () => {
   return (
     <main className={styles.page}>
       <Filter title={board?.title} />
-      {board ? <>{board.title}</> : <StartText />}
+      {board ? <Board /> : <StartText />}
     </main>
   );
 };
