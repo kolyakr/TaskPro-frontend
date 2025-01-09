@@ -62,3 +62,14 @@
 .selectedTitle {
   color: var(--text-color);
 }
+.modalBtn {
+  display: flex;
+  gap: 8px;
+  align-items: center;
+  justify-content: center;
+}
+
+.addIcon {
+  fill: black;
+  stroke: black;
+}

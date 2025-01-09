@@ -4,11 +4,11 @@ import { useForm } from "react-hook-form";
 import * as yup from "yup";
 import { Icon } from "../Icon/Icon";
 import { backgroundImages, icons } from "../../constants";
-import styles from "./CreateBoard.module.css";
 import clsx from "clsx";
-import { CreateBoardData } from "../../types/boards";
+import { CreateBoardData, EditBoardData } from "../../types/boards";
 import { useAppDispatch } from "../../hooks/auth";
-import { createBoard } from "../../redux/boards/operations";
+import { createBoard, editBoard } from "../../redux/boards/operations";
+import styles from "./ModalBoard.module.css";
 
 const CreateBoardSchema = yup.object().shape({
   title: yup
@@ -23,18 +23,43 @@ const CreateBoardSchema = yup.object().shape({
     .required("Background is required"),
 });
 
-interface CreateBoardProps {
+const EditBoardSchema = yup.object().shape({
+  title: yup
+    .string()
+    .test(
+      "is-empty-or-valid",
+      "Minimum length is 2 characters",
+      (value) =>
+        value === "" ||
+        (value != undefined && value?.length >= 2 && value?.length <= 20)
+    )
+    .max(20, "Maximum length is 20 characters"),
+  icon: yup.string(),
+  background: yup.string(),
+});
+
+type ModalBoardType = "create" | "edit";
+
+interface ModalBoardProps {
   closeModal: () => void;
+  type: ModalBoardType;
+  boardId?: string;
 }
 
-const CreateBoard: React.FC<CreateBoardProps> = ({ closeModal }) => {
+const ModalBoard: React.FC<ModalBoardProps> = ({
+  closeModal,
+  type,
+  boardId,
+}) => {
+  const ModalBoardSchema =
+    type === "create" ? CreateBoardSchema : EditBoardSchema;
   const {
     register,
     handleSubmit,
     formState: { errors },
     setValue,
-  } = useForm<CreateBoardData>({
-    resolver: yupResolver(CreateBoardSchema),
+  } = useForm<CreateBoardData | Omit<EditBoardData, "boardId">>({
+    resolver: yupResolver(ModalBoardSchema),
     defaultValues: {
       title: "",
       icon: "",
@@ -67,15 +92,48 @@ const CreateBoard: React.FC<CreateBoardProps> = ({ closeModal }) => {
 
   const dispatch = useAppDispatch();
 
-  const onSubmit = async (data: CreateBoardData) => {
-    await dispatch(createBoard(data)).then(() => {
-      closeModal();
-    });
+  const onSubmit = async (
+    data: CreateBoardData | Omit<EditBoardData, "boardId">
+  ) => {
+    if (type === "create") {
+      const createBoardData: CreateBoardData = {
+        title: data.title,
+        icon: data.icon,
+        background: data.background,
+      };
+      await dispatch(createBoard(createBoardData)).then(() => {
+        closeModal();
+      });
+    }
+
+    if (type === "edit") {
+      const editBoardData: EditBoardData = {
+        boardId: null,
+      };
+
+      if (data?.title && data.title !== "") {
+        editBoardData.title = data.title;
+      }
+      if (data?.background && data.background != "") {
+        editBoardData.background = data.background;
+      }
+      if (data?.icon && data.icon !== "") {
+        editBoardData.icon = data.icon;
+      }
+
+      editBoardData.boardId = boardId || null;
+
+      if (Object.keys(editBoardData).length > 1) {
+        await dispatch(editBoard(editBoardData)).then(() => {
+          closeModal();
+        });
+      }
+    }
   };
 
   return (
     <form
-      id="createBoardForm"
+      id={type === "create" ? "createBoardForm" : "editBoardForm"}
       className={styles.form}
       onSubmit={handleSubmit(onSubmit)}
     >
@@ -137,4 +195,4 @@ const CreateBoard: React.FC<CreateBoardProps> = ({ closeModal }) => {
   );
 };
 
-export default CreateBoard;
+export default ModalBoard;

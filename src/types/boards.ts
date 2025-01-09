@@ -19,7 +19,14 @@ export interface Card {
 }
 
 export interface CreateBoardData {
-  title: string;
-  icon: string;
-  background: string;
+  title: string | undefined;
+  icon: string | undefined;
+  background: string | undefined;
+}
+
+export interface EditBoardData {
+  title?: string;
+  icon?: string;
+  background?: string;
+  boardId: string | null;
 }

@@ -12,6 +12,8 @@ import {
 } from "../../service/localStorage";
 import { deleteBoard } from "../../redux/boards/operations";
 import Loader from "../Loader/Loader";
+import ModalWindow from "../ModalWindow/ModalWindow";
+import ModalBoard from "../ModalBoard/ModalBoard";
 
 const BoardsList: React.FC = () => {
   const boards = useAppSelector(selectBoards);
@@ -19,6 +21,12 @@ const BoardsList: React.FC = () => {
   const navigate = useNavigate();
   const dispatch = useAppDispatch();
   const isLoading = useAppSelector(selectIsLoading);
+
+  const [isEditModalOpen, setIsEditModalOpen] = useState<boolean>(false);
+
+  const closeEditModal = () => {
+    setIsEditModalOpen(false);
+  };
 
   useEffect(() => {
     if (boardId === undefined && boards.length > 0) {
@@ -55,6 +63,10 @@ const BoardsList: React.FC = () => {
 
   const handleDeleteBoard = async (boardId: string) => {
     await dispatch(deleteBoard(boardId));
+  };
+
+  const handleEditBoard = () => {
+    setIsEditModalOpen(true);
   };
 
   return (
@@ -95,7 +107,7 @@ const BoardsList: React.FC = () => {
             </div>
             {board.boardId === selectedBoardId && (
               <div className={styles.actionsCont}>
-                <div>
+                <div onClick={handleEditBoard}>
                   <Icon id="pencil" size={16} />
                 </div>
                 <div onClick={() => handleDeleteBoard(board.boardId)}>
@@ -110,6 +122,28 @@ const BoardsList: React.FC = () => {
           </NavLink>
         </li>
       ))}
+
+      <ModalWindow
+        isOpen={isEditModalOpen}
+        closeModal={closeEditModal}
+        formId="editBoardForm"
+        width="350px"
+        height="433px"
+        title="Edit board"
+        submitBtnChildren={
+          <div className={styles.modalBtn}>
+            <Icon className={styles.addIcon} id="modal-plus" size={28} />
+            <p>Edit</p>
+          </div>
+        }
+        isLoading={isLoading}
+      >
+        <ModalBoard
+          closeModal={closeEditModal}
+          type="edit"
+          boardId={selectedBoardId}
+        />
+      </ModalWindow>
     </ul>
   );
 };

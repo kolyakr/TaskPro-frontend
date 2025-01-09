@@ -8,8 +8,8 @@ import { useAppDispatch, useAppSelector } from "../../hooks/auth";
 import { logoutUser } from "../../redux/auth/operations";
 import NeedHelp from "../NeedHelp/NeedHelp";
 import ModalWindow from "../ModalWindow/ModalWindow";
-import CreateBoard from "../CreateBoard/CreateBoard";
 import { selectBoards, selectIsLoading } from "../../redux/boards/selectors";
+import ModalBoard from "../ModalBoard/ModalBoard";
 
 type ModalType = "need-help" | "create";
 
@@ -120,7 +120,7 @@ const Sidebar: React.FC = () => {
         }
         isLoading={isLoading}
       >
-        <CreateBoard closeModal={closeModal} />
+        <ModalBoard closeModal={closeModal} type="create" />
       </ModalWindow>
     </aside>
   );

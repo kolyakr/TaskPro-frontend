@@ -1,11 +1,12 @@
 import { createAsyncThunk } from "@reduxjs/toolkit";
-import { Board, CreateBoardData } from "../../types/boards";
+import { Board, CreateBoardData, EditBoardData } from "../../types/boards";
 import { ErrorServerResponse } from "../../types";
 import axios from "axios";
 import { RootState } from "../store";
 import {
   createBoardService,
   deleteBoardService,
+  editBoardService,
   getBoardsService,
 } from "../../service/boards";
 
@@ -88,6 +89,34 @@ export const deleteBoard = createAsyncThunk<
     await deleteBoardService(boardId, token);
 
     return boardId;
+  } catch (err) {
+    if (axios.isAxiosError(err)) {
+      return rejectWithValue(err.response?.data);
+    }
+
+    throw err;
+  }
+});
+
+export const editBoard = createAsyncThunk<
+  Board,
+  EditBoardData,
+  {
+    rejectValue: ErrorServerResponse | undefined;
+  }
+>("boards/editBoard", async (editBoardData, { rejectWithValue, getState }) => {
+  try {
+    const store = getState() as RootState;
+    const token = store.auth.token;
+
+    if (!token) {
+      throw new Error();
+    }
+
+    const { data } = await editBoardService(editBoardData, token);
+    const board = data.board;
+
+    return board;
   } catch (err) {
     if (axios.isAxiosError(err)) {
       return rejectWithValue(err.response?.data);
