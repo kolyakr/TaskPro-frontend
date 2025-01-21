@@ -1,0 +1,47 @@
+.column {
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+  max-width: 334px;
+  width: 100%;
+}
+
+.columnHeader {
+  width: 334px;
+  display: flex;
+  justify-content: space-between;
+  background-color: var(--header-background-color);
+  height: 56px;
+  align-items: center;
+  padding: 20px;
+  border-radius: 8px;
+}
+
+.actionCont {
+  display: flex;
+  gap: 8px;
+}
+
+.addBtn {
+  width: 334px;
+  height: 56px;
+  border-radius: 8px;
+  background-color: var(--add-column-background-color);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+}
+
+.btnText {
+  font-size: 14px;
+  font-weight: 500;
+  line-height: 21px;
+  letter-spacing: -0.02em;
+  color: var(--modal-add-btn-fill);
+}
+
+.deleteColumn,
+.editColumn {
+  cursor: pointer;
+}

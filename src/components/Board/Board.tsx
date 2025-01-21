@@ -25,8 +25,10 @@ const Board: React.FC = () => {
   };
 
   return (
-    <div>
-      {board && board?.columns.length > 0 && <ColumnsList />}
+    <div className={styles.board}>
+      {board && board?.columns.length > 0 && (
+        <ColumnsList columns={board.columns} />
+      )}
       <button onClick={openCreateModal} className={styles.addBtn}>
         <div className={styles.addWrap}>
           <Icon

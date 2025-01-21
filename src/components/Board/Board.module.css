@@ -1,3 +1,32 @@
+.board {
+  display: flex;
+  gap: 34px;
+  overflow-x: auto;
+  padding: 10px;
+  white-space: nowrap;
+  box-sizing: border-box;
+  max-width: 1232px;
+  width: 100%;
+  height: 100%;
+}
+
+.board::-webkit-scrollbar {
+  height: 8px;
+}
+
+.board::-webkit-scrollbar-thumb {
+  background: #888;
+  border-radius: 4px;
+}
+
+.board::-webkit-scrollbar-thumb:hover {
+  background: #555;
+}
+
+.board::-webkit-scrollbar-track {
+  background: #f1f1f1;
+}
+
 .addBtn {
   max-width: 334px;
   width: 100%;
@@ -7,11 +36,13 @@
   background-color: var(--add-column-color);
   color: var(--text-color);
 }
+
 .addWrap {
   display: flex;
   gap: 8px;
   align-items: center;
 }
+
 .addText {
   font-size: 14px;
   font-weight: 500;
@@ -19,6 +50,7 @@
   letter-spacing: -0.02em;
   text-align: left;
 }
+
 .modalBtn {
   display: flex;
   gap: 8px;

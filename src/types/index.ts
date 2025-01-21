@@ -38,3 +38,5 @@ export interface GetUserResponse {
   user: User;
   token: string;
 }
+
+export type Priority = "without priority" | "low" | "medium" | "high";

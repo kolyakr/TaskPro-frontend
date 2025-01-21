@@ -44,3 +44,10 @@ export const backgroundImages = [
   sea_cliffs,
   tropical_leaves,
 ];
+
+export const priorityColor = {
+  "without priority": "#FFFFFF4D",
+  low: "#8FA1D0",
+  medium: "#E09CB5",
+  high: "#BEDBB0",
+};

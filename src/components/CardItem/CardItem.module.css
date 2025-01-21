@@ -1,0 +1,83 @@
+.card {
+  width: 334px;
+  height: 154px;
+  border-radius: 8px;
+  background-color: var(--header-background-color);
+  box-sizing: border-box;
+  padding-top: 14px;
+  padding-bottom: 14px;
+  padding-left: 24px;
+  padding-right: 18px;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  gap: 28px;
+}
+
+.titleCont {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.title {
+  font-size: 14px;
+  font-weight: 600;
+  line-height: 21px;
+  letter-spacing: -0.02em;
+}
+
+.description {
+  font-size: 12px;
+  font-weight: 400;
+  line-height: 16px;
+  letter-spacing: -0.02em;
+  color: #ffffff80;
+  max-width: 290px;
+  white-space: normal;
+  word-wrap: break-word;
+  overflow-wrap: break-word;
+}
+
+.bottom {
+  display: flex;
+  justify-content: space-between;
+}
+
+.details {
+  display: flex;
+  gap: 14px;
+}
+.detail {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+.detailsText {
+  font-size: 8px;
+  font-weight: 400;
+  line-height: 12px;
+  letter-spacing: -0.02em;
+  color: #ffffff80;
+}
+.detailValue {
+  font-size: 10px;
+  font-weight: 400;
+  line-height: 15px;
+  letter-spacing: -0.02em;
+  text-align: left;
+  display: flex;
+  gap: 1.5px;
+}
+
+.priorityColor {
+  height: 12px;
+  width: 12px;
+  border-radius: 50px;
+  background-color: white;
+}
+
+.actions {
+  display: flex;
+  gap: 8px;
+}

@@ -68,7 +68,7 @@ const Sidebar: React.FC = () => {
           </div>
         </div>
         {boards && boards.length > 0 && <BoardsList />}
-        <div>
+        <div className={styles.needHelpWrap}>
           <div className={styles.needHelpCont}>
             <img
               src={smilingTree1x}

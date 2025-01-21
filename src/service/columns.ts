@@ -18,3 +18,11 @@ export const addColumnService = async (
 
   return data;
 };
+
+export const deleteColumnService = async (columnId: string, token: string) => {
+  await instance.delete(`/${columnId}`, {
+    headers: {
+      Authorization: `Bearer ${token}`,
+    },
+  });
+};

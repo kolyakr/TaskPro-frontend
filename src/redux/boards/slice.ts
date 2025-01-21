@@ -4,6 +4,7 @@ import {
   addColumn,
   createBoard,
   deleteBoard,
+  deleteColumn,
   editBoard,
   getBoards,
 } from "./operations";
@@ -96,6 +97,25 @@ const slice = createSlice({
       })
       .addCase(addColumn.rejected, (state, action) => {
         state.error = action.payload?.message || "Failed to create column";
+        state.isLoading = false;
+      })
+      .addCase(deleteColumn.pending, (state) => {
+        state.isLoading = true;
+        state.error = null;
+      })
+      .addCase(deleteColumn.fulfilled, (state, action) => {
+        state.boards = state.boards.map((board) => {
+          return {
+            ...board,
+            columns: board.columns.filter(
+              (column) => column.columnId !== action.payload
+            ),
+          };
+        });
+        state.isLoading = false;
+      })
+      .addCase(deleteColumn.rejected, (state, action) => {
+        state.error = action.payload?.message || "Failed to delete column";
         state.isLoading = false;
       });
   },

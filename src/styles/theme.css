@@ -18,6 +18,7 @@
   --screens-page-add-btn-stroke: #121212;
   --modal-add-btn-fill: #161616;
   --modal-add-btn-stroke: #ffffff;
+  --add-column-background-color: #bedbb0;
 }
 
 [data-theme="light"] {
@@ -40,6 +41,7 @@
   --screens-page-add-btn-stroke: #ffffff;
   --modal-add-btn-fill: #161616;
   --modal-add-btn-stroke: #ffffff;
+  --add-column-background-color: #bedbb0;
 }
 
 [data-theme="violet"] {
@@ -62,4 +64,5 @@
   --screens-page-add-btn-stroke: #ffffff;
   --modal-add-btn-fill: #ffffff;
   --modal-add-btn-stroke: #5255bc;
+  --add-column-background-color: #5255bc;
 }

@@ -10,7 +10,7 @@ import {
   getBoardsService,
 } from "../../service/boards";
 import { AddBoardResponse, AddColumnData } from "../../types/columns";
-import { addColumnService } from "../../service/columns";
+import { addColumnService, deleteColumnService } from "../../service/columns";
 
 export const createBoard = createAsyncThunk<
   Board,
@@ -147,6 +147,31 @@ export const addColumn = createAsyncThunk<
     const column = data.column;
 
     return { column, boardId: addColumnData.boardId };
+  } catch (err) {
+    if (axios.isAxiosError(err)) {
+      return rejectWithValue(err.response?.data);
+    }
+
+    throw err;
+  }
+});
+
+export const deleteColumn = createAsyncThunk<
+  string,
+  string,
+  { rejectValue: ErrorServerResponse | undefined }
+>("boards/deleteColumn", async (columnId, { rejectWithValue, getState }) => {
+  try {
+    const store = getState() as RootState;
+    const token = store.auth.token;
+
+    if (!token) {
+      throw new Error();
+    }
+
+    await deleteColumnService(columnId, token);
+
+    return columnId;
   } catch (err) {
     if (axios.isAxiosError(err)) {
       return rejectWithValue(err.response?.data);
