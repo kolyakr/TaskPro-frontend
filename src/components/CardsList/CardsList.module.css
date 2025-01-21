@@ -25,15 +25,15 @@
 }
 
 .list::-webkit-scrollbar-thumb {
-  background-color: #888;
+  background-color: var(--scroll-btn-color);
   border-radius: 4px;
 }
 
 .list::-webkit-scrollbar-thumb:hover {
-  background-color: #555;
+  background-color: var(--scroll-btn-color);
 }
 
 .list::-webkit-scrollbar-track {
-  background-color: #f0f0f0;
+  background-color: var(--scroll-background-color);
   border-radius: 4px;
 }

@@ -20,7 +20,7 @@ type ModalColumnType = "add" | "edit";
 interface ModalColumnProps {
   type: ModalColumnType;
   boardId: string | null;
-  column: Column;
+  column?: Column;
   closeModal: () => void;
 }
 
@@ -52,7 +52,7 @@ const ModalColumn: React.FC<ModalColumnProps> = ({
       });
     }
 
-    if (type === "edit" && column.columnId != null) {
+    if (type === "edit" && column?.columnId != null) {
       await dispatch(
         editColumn({
           boardId: boardId || "",
