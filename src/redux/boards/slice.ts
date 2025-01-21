@@ -6,6 +6,7 @@ import {
   deleteBoard,
   deleteColumn,
   editBoard,
+  editColumn,
   getBoards,
 } from "./operations";
 
@@ -116,6 +117,35 @@ const slice = createSlice({
       })
       .addCase(deleteColumn.rejected, (state, action) => {
         state.error = action.payload?.message || "Failed to delete column";
+        state.isLoading = false;
+      })
+      .addCase(editColumn.pending, (state) => {
+        state.isLoading = true;
+        state.error = null;
+      })
+      .addCase(editColumn.fulfilled, (state, action) => {
+        state.boards = state.boards.map((board) => {
+          if (board.boardId === action.payload.boardId) {
+            const updatedColumns = board.columns.map((column) => {
+              if (column.columnId === action.payload.columnId) {
+                return {
+                  columnId: action.payload.columnId,
+                  title: action.payload.title,
+                  cards: action.payload.cards,
+                };
+              }
+
+              return column;
+            });
+
+            board.columns = updatedColumns;
+          }
+          return board;
+        });
+        state.isLoading = false;
+      })
+      .addCase(editColumn.rejected, (state, action) => {
+        state.error = action.payload?.message || "Failed to edit column";
         state.isLoading = false;
       });
   },

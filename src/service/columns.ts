@@ -1,5 +1,5 @@
 import axios from "axios";
-import { AddColumnData } from "../types/columns";
+import { AddAndEditColumnData } from "../types/columns";
 
 const instance = axios.create({
   baseURL: "http://localhost:3000/columns",
@@ -7,7 +7,7 @@ const instance = axios.create({
 });
 
 export const addColumnService = async (
-  payload: AddColumnData,
+  payload: AddAndEditColumnData,
   token: string
 ) => {
   const { data } = await instance.post("/", payload, {
@@ -25,4 +25,24 @@ export const deleteColumnService = async (columnId: string, token: string) => {
       Authorization: `Bearer ${token}`,
     },
   });
+};
+
+export const editColumnService = async (
+  columnId: string,
+  title: string,
+  token: string
+) => {
+  const { data } = await instance.patch(
+    `/${columnId}`,
+    {
+      title: title,
+    },
+    {
+      headers: {
+        Authorization: `Bearer ${token}`,
+      },
+    }
+  );
+
+  return data;
 };

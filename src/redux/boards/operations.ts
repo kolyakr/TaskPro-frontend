@@ -9,8 +9,16 @@ import {
   editBoardService,
   getBoardsService,
 } from "../../service/boards";
-import { AddBoardResponse, AddColumnData } from "../../types/columns";
-import { addColumnService, deleteColumnService } from "../../service/columns";
+import {
+  AddAndEditColumnData,
+  AddAndEditColumnResponse,
+  Column,
+} from "../../types/columns";
+import {
+  addColumnService,
+  deleteColumnService,
+  editColumnService,
+} from "../../service/columns";
 
 export const createBoard = createAsyncThunk<
   Board,
@@ -129,8 +137,8 @@ export const editBoard = createAsyncThunk<
 });
 
 export const addColumn = createAsyncThunk<
-  AddBoardResponse,
-  AddColumnData,
+  AddAndEditColumnResponse,
+  AddAndEditColumnData,
   {
     rejectValue: ErrorServerResponse | undefined;
   }
@@ -180,3 +188,38 @@ export const deleteColumn = createAsyncThunk<
     throw err;
   }
 });
+
+export const editColumn = createAsyncThunk<
+  Column & { boardId: string },
+  AddAndEditColumnData & { columnId: string },
+  {
+    rejectValue: ErrorServerResponse | undefined;
+  }
+>(
+  "boards/editColumn",
+  async (editColumnData, { rejectWithValue, getState }) => {
+    try {
+      const store = getState() as RootState;
+      const token = store.auth.token;
+
+      if (!token) {
+        throw new Error();
+      }
+
+      const { data } = await editColumnService(
+        editColumnData.columnId,
+        editColumnData.title,
+        token
+      );
+      const column = data.column;
+
+      return { ...column, boardId: editColumnData.boardId };
+    } catch (err) {
+      if (axios.isAxiosError(err)) {
+        return rejectWithValue(err.response?.data);
+      }
+
+      throw err;
+    }
+  }
+);

@@ -3,7 +3,7 @@ import { useForm } from "react-hook-form";
 import * as yup from "yup";
 import { Column } from "../../types/columns";
 import { yupResolver } from "@hookform/resolvers/yup";
-import { addColumn } from "../../redux/boards/operations";
+import { addColumn, editColumn } from "../../redux/boards/operations";
 import { useAppDispatch } from "../../hooks/auth";
 import styles from "./ModalColumn.module.css";
 
@@ -20,12 +20,14 @@ type ModalColumnType = "add" | "edit";
 interface ModalColumnProps {
   type: ModalColumnType;
   boardId: string | null;
+  column: Column;
   closeModal: () => void;
 }
 
 const ModalColumn: React.FC<ModalColumnProps> = ({
   type,
   boardId,
+  column,
   closeModal,
 }) => {
   const {
@@ -50,9 +52,17 @@ const ModalColumn: React.FC<ModalColumnProps> = ({
       });
     }
 
-    // if(type === "edit"){
-
-    // }
+    if (type === "edit" && column.columnId != null) {
+      await dispatch(
+        editColumn({
+          boardId: boardId || "",
+          title: data.title,
+          columnId: column.columnId,
+        })
+      ).then(() => {
+        closeModal();
+      });
+    }
   };
 
   return (
@@ -65,7 +75,7 @@ const ModalColumn: React.FC<ModalColumnProps> = ({
         className={styles.formInput}
         type="text"
         {...register("title")}
-        placeholder="Title"
+        placeholder={column?.title || "Title"}
       />
       {errors.title?.message && (
         <p className={styles.formError}>{errors.title.message}</p>

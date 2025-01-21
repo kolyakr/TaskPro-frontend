@@ -6,12 +6,12 @@ export interface Column {
   cards: Card[];
 }
 
-export interface AddColumnData {
+export interface AddAndEditColumnData {
   boardId: string;
   title: string;
 }
 
-export interface AddBoardResponse {
+export interface AddAndEditColumnResponse {
   column: Column;
   boardId: string;
 }
