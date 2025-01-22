@@ -9,6 +9,7 @@ import ModalWindow from "../ModalWindow/ModalWindow";
 import ModalColumn from "../ModalColumn/ModalColumn";
 import { selectIsLoading } from "../../redux/boards/selectors";
 import { useParams } from "react-router-dom";
+import ModalCard from "../ModalCard/ModalCard";
 
 interface ColumnProps {
   column: Column;
@@ -16,6 +17,7 @@ interface ColumnProps {
 
 const ColumnItem: React.FC<ColumnProps> = ({ column }) => {
   const [isEditModalOpen, setIsEditModalOpen] = useState<boolean>(false);
+  const [isAddModalOpen, setIsAddModalOpen] = useState<boolean>(false);
   const dispatch = useAppDispatch();
   const isLoading = useAppSelector(selectIsLoading);
   const { boardId } = useParams();
@@ -24,8 +26,12 @@ const ColumnItem: React.FC<ColumnProps> = ({ column }) => {
     dispatch(deleteColumn(column.columnId));
   };
 
-  const toggleModal = (status: boolean) => {
+  const toggleEditModal = (status: boolean) => {
     setIsEditModalOpen(status);
+  };
+
+  const toggleAddModal = (status: boolean) => {
+    setIsAddModalOpen(status);
   };
 
   return (
@@ -33,7 +39,10 @@ const ColumnItem: React.FC<ColumnProps> = ({ column }) => {
       <div className={styles.columnHeader}>
         <p>{column.title}</p>
         <div className={styles.actionCont}>
-          <div onClick={() => toggleModal(true)} className={styles.editColumn}>
+          <div
+            onClick={() => toggleEditModal(true)}
+            className={styles.editColumn}
+          >
             <Icon id="pencil" size={16} />
           </div>
           <div onClick={handleDelete} className={styles.deleteColumn}>
@@ -42,7 +51,7 @@ const ColumnItem: React.FC<ColumnProps> = ({ column }) => {
         </div>
       </div>
       <CardsList cards={column.cards} />
-      <button className={styles.addBtn}>
+      <button className={styles.addBtn} onClick={() => toggleAddModal(true)}>
         <Icon
           id="add"
           fill="var(--modal-add-btn-fill)"
@@ -54,7 +63,7 @@ const ColumnItem: React.FC<ColumnProps> = ({ column }) => {
 
       <ModalWindow
         isOpen={isEditModalOpen}
-        closeModal={() => toggleModal(false)}
+        closeModal={() => toggleEditModal(false)}
         formId="editColumnForm"
         width="350px"
         height="221px"
@@ -74,9 +83,36 @@ const ColumnItem: React.FC<ColumnProps> = ({ column }) => {
       >
         <ModalColumn
           type="edit"
-          closeModal={() => toggleModal(false)}
+          closeModal={() => toggleEditModal(false)}
           boardId={boardId || ""}
           column={column}
+        />
+      </ModalWindow>
+
+      <ModalWindow
+        isOpen={isAddModalOpen}
+        closeModal={() => toggleAddModal(false)}
+        formId="addCardForm"
+        width="350px"
+        height="522px"
+        title="Add card"
+        submitBtnChildren={
+          <div className={styles.modalBtn}>
+            <Icon
+              id="add"
+              fill="var(--modal-add-btn-fill)"
+              stroke="var(--modal-add-btn-stroke)"
+              size={28}
+            />
+            <p>Add</p>
+          </div>
+        }
+        isLoading={isLoading}
+      >
+        <ModalCard
+          type="add"
+          closeModal={() => toggleAddModal(false)}
+          columnId={column.columnId}
         />
       </ModalWindow>
     </li>

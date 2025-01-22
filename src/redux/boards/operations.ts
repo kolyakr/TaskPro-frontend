@@ -19,6 +19,8 @@ import {
   deleteColumnService,
   editColumnService,
 } from "../../service/columns";
+import { AddCardData, Card } from "../../types/cards";
+import { addCardService } from "../../service/cards";
 
 export const createBoard = createAsyncThunk<
   Board,
@@ -223,3 +225,32 @@ export const editColumn = createAsyncThunk<
     }
   }
 );
+
+export const addCard = createAsyncThunk<
+  { card: Card; columnId: string },
+  AddCardData,
+  { rejectValue: ErrorServerResponse | undefined }
+>("boards/addCard", async (addCardData, { rejectWithValue, getState }) => {
+  try {
+    const store = getState() as RootState;
+    const token = store.auth.token;
+
+    if (!token) {
+      throw new Error();
+    }
+
+    const { data } = await addCardService(addCardData, token);
+    const card = data.card;
+
+    return {
+      card: card,
+      columnId: addCardData.columnId,
+    };
+  } catch (err) {
+    if (axios.isAxiosError(err)) {
+      return rejectWithValue(err.response?.data);
+    }
+
+    throw err;
+  }
+});

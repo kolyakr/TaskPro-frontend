@@ -1,6 +1,7 @@
 import { createSlice } from "@reduxjs/toolkit";
 import { Board } from "../../types/boards";
 import {
+  addCard,
   addColumn,
   createBoard,
   deleteBoard,
@@ -146,6 +147,29 @@ const slice = createSlice({
       })
       .addCase(editColumn.rejected, (state, action) => {
         state.error = action.payload?.message || "Failed to edit column";
+        state.isLoading = false;
+      })
+      .addCase(addCard.pending, (state) => {
+        state.error = null;
+        state.isLoading = true;
+      })
+      .addCase(addCard.fulfilled, (state, action) => {
+        state.boards = state.boards.map((board) => {
+          return {
+            ...board,
+            columns: board.columns.map((column) => {
+              if (column.columnId === action.payload.columnId) {
+                column.cards = [...column.cards, action.payload.card];
+              }
+
+              return column;
+            }),
+          };
+        });
+        state.isLoading = false;
+      })
+      .addCase(addCard.rejected, (state, action) => {
+        state.error = action.payload?.message || "Failed to add card";
         state.isLoading = false;
       });
   },
