@@ -81,3 +81,14 @@
   display: flex;
   gap: 8px;
 }
+
+.actionCont {
+  cursor: pointer;
+}
+
+.modalBtn {
+  display: flex;
+  gap: 8px;
+  align-items: center;
+  justify-content: center;
+}

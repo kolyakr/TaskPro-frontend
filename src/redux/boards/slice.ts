@@ -7,6 +7,7 @@ import {
   deleteBoard,
   deleteColumn,
   editBoard,
+  editCard,
   editColumn,
   getBoards,
 } from "./operations";
@@ -170,6 +171,43 @@ const slice = createSlice({
       })
       .addCase(addCard.rejected, (state, action) => {
         state.error = action.payload?.message || "Failed to add card";
+        state.isLoading = false;
+      })
+      .addCase(editCard.pending, (state) => {
+        state.error = null;
+        state.isLoading = true;
+      })
+      .addCase(editCard.fulfilled, (state, action) => {
+        const { columnId, card } = action.payload;
+
+        if (!columnId || !card?.cardId) {
+          console.error(
+            "Invalid payload received for editCard:",
+            action.payload
+          );
+          state.isLoading = false;
+          return;
+        }
+
+        state.boards = state.boards.map((board) => ({
+          ...board,
+          columns: board.columns.map((column) => {
+            if (column.columnId === columnId) {
+              return {
+                ...column,
+                cards: column.cards.map((c) =>
+                  c.cardId === card.cardId ? { ...c, ...card } : c
+                ),
+              };
+            }
+            return column;
+          }),
+        }));
+
+        state.isLoading = false;
+      })
+      .addCase(editCard.rejected, (state, action) => {
+        state.error = action.payload?.message || "Failed to edit card";
         state.isLoading = false;
       });
   },

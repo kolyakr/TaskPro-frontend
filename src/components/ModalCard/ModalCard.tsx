@@ -10,7 +10,8 @@ import DatePicker from "react-datepicker";
 import "react-datepicker/dist/react-datepicker.css";
 import { Icon } from "../Icon/Icon";
 import { useAppDispatch } from "../../hooks/auth";
-import { addCard } from "../../redux/boards/operations";
+import { addCard, editCard } from "../../redux/boards/operations";
+import { Card } from "../../types/cards";
 
 type ModalCardType = "add" | "edit";
 
@@ -18,6 +19,7 @@ interface ModalCardProps {
   type: ModalCardType;
   closeModal: () => void;
   columnId: string;
+  card?: Card;
 }
 
 interface AddCardType {
@@ -97,6 +99,7 @@ const ModalCard: React.FC<ModalCardProps> = ({
   type,
   closeModal,
   columnId,
+  card,
 }) => {
   const CardSchema = type === "add" ? AddCardSchema : EditCardSchema;
   const {
@@ -106,18 +109,21 @@ const ModalCard: React.FC<ModalCardProps> = ({
     setValue,
   } = useForm<CardData>({
     defaultValues: {
-      title: "",
-      description: "",
-      priority: "without priority",
-      deadline: new Date(),
+      title: card?.title ?? "",
+      description: card?.description ?? "",
+      priority: card?.priority ?? "without priority",
+      deadline: card?.deadline ?? new Date(),
     },
     resolver: yupResolver(CardSchema),
   });
 
-  const [selectedPriority, setSelectedPriority] =
-    useState<Priority>("without priority");
+  const [selectedPriority, setSelectedPriority] = useState<Priority>(
+    card?.priority ?? "without priority"
+  );
 
-  const [startDate, setStartDate] = useState<Date | null>(new Date());
+  const [startDate, setStartDate] = useState<Date | null>(
+    card?.deadline ?? new Date()
+  );
   const datepickerRef = useRef<DatePicker>(null);
 
   const toggleCalendar = () => {
@@ -135,11 +141,23 @@ const ModalCard: React.FC<ModalCardProps> = ({
         closeModal();
       });
     }
+
+    if (type === "edit") {
+      await dispatch(
+        editCard({
+          cardData: { ...data, columnId: columnId },
+          cardId: card?.cardId || "",
+        })
+      ).then(() => {
+        closeModal();
+        //window.location.reload();
+      });
+    }
   };
 
   return (
     <form
-      id="addCardForm"
+      id={type === "add" ? "addCardForm" : "editCardForm"}
       onSubmit={handleSubmit(onSubmit)}
       className={styles.form}
     >
