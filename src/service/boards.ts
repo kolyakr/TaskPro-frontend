@@ -1,5 +1,6 @@
 import axios from "axios";
 import { CreateBoardData, EditBoardData } from "../types/boards";
+import { Priority } from "../types";
 
 const instance = axios.create({
   baseURL: "http://localhost:3000/boards",
@@ -19,8 +20,12 @@ export const createBoardService = async (
   return data;
 };
 
-export const getBoardsService = async (token: string) => {
-  const { data } = await instance.get("/", {
+export const getBoardsService = async (
+  priority: Priority | undefined,
+  token: string
+) => {
+  const url = priority !== undefined ? `?priority=${priority}` : "/";
+  const { data } = await instance.get(url, {
     headers: {
       Authorization: `Bearer ${token}`,
     },

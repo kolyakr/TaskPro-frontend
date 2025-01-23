@@ -1,6 +1,6 @@
 import { createAsyncThunk } from "@reduxjs/toolkit";
 import { Board, CreateBoardData, EditBoardData } from "../../types/boards";
-import { ErrorServerResponse } from "../../types";
+import { ErrorServerResponse, Priority } from "../../types";
 import axios from "axios";
 import { RootState } from "../store";
 import {
@@ -68,9 +68,11 @@ export const createBoard = createAsyncThunk<
 
 export const getBoards = createAsyncThunk<
   Board[],
-  void,
+  {
+    priority?: Priority;
+  } | void,
   { rejectValue: ErrorServerResponse | undefined }
->("boards/getBoards", async (_, { rejectWithValue, getState }) => {
+>("boards/getBoards", async (getBoardsData, { rejectWithValue, getState }) => {
   try {
     const store = getState() as RootState;
     const token = store.auth.token;
@@ -79,7 +81,7 @@ export const getBoards = createAsyncThunk<
       throw new Error();
     }
 
-    const { data } = await getBoardsService(token);
+    const { data } = await getBoardsService(getBoardsData?.priority, token);
     const boards = data.boards;
 
     return boards;
