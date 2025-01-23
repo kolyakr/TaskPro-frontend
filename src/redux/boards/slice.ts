@@ -11,6 +11,7 @@ import {
   editCard,
   editColumn,
   getBoards,
+  moveCard,
 } from "./operations";
 
 interface BoardsState {
@@ -181,28 +182,18 @@ const slice = createSlice({
       .addCase(editCard.fulfilled, (state, action) => {
         const { columnId, card } = action.payload;
 
-        if (!columnId || !card?.cardId) {
-          console.error(
-            "Invalid payload received for editCard:",
-            action.payload
-          );
-          state.isLoading = false;
-          return;
-        }
-
         state.boards = state.boards.map((board) => ({
           ...board,
-          columns: board.columns.map((column) => {
-            if (column.columnId === columnId) {
-              return {
-                ...column,
-                cards: column.cards.map((c) =>
-                  c.cardId === card.cardId ? { ...c, ...card } : c
-                ),
-              };
-            }
-            return column;
-          }),
+          columns: board.columns.map((column) =>
+            column.columnId === columnId
+              ? {
+                  ...column,
+                  cards: column.cards.map((c) =>
+                    c.cardId === card.cardId ? { ...c, ...card } : c
+                  ),
+                }
+              : column
+          ),
         }));
 
         state.isLoading = false;
@@ -233,6 +224,41 @@ const slice = createSlice({
       })
       .addCase(deleteCard.rejected, (state, action) => {
         state.error = action.payload?.message || "Failed to delete card";
+        state.isLoading = false;
+      })
+      .addCase(moveCard.pending, (state) => {
+        state.error = null;
+        state.isLoading = false;
+      })
+      .addCase(moveCard.fulfilled, (state, action) => {
+        state.boards = state.boards.map((board) => {
+          return {
+            ...board,
+            columns: board.columns.map((column) => {
+              if (column.columnId === action.payload.oldColumnId) {
+                return {
+                  ...column,
+                  cards: column.cards.filter(
+                    (card) => card.cardId !== action.payload.card.cardId
+                  ),
+                };
+              }
+
+              if (column.columnId === action.payload.newColumnId) {
+                return {
+                  ...column,
+                  cards: [...column.cards, action.payload.card],
+                };
+              }
+
+              return column;
+            }),
+          };
+        });
+        state.isLoading = false;
+      })
+      .addCase(moveCard.rejected, (state, action) => {
+        state.error = action.payload?.message || "Failed to move card";
         state.isLoading = false;
       });
   },

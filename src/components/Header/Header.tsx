@@ -1,15 +1,14 @@
-import React, { useCallback, useEffect, useRef, useState } from "react";
+import React, { useRef, useState } from "react";
 import { Icon } from "../Icon/Icon";
 import styles from "./Header.module.css";
 import { useAppDispatch } from "../../hooks/auth";
-import Dropdown from "../Dropdown/Dropdown";
 import { updateUserProfile } from "../../redux/auth/operations";
 import UserInfo from "../UserInfo/UserInfo";
+import Dropdown from "../Dropdown/Dropdown";
 
 const Header: React.FC = () => {
   const dispatch = useAppDispatch();
   const [isThemeOpen, setIsThemeOpen] = useState<boolean>(false);
-  const themeDropdownRef = useRef<HTMLUListElement | null>(null);
   const themeButtonRef = useRef<HTMLDivElement | null>(null);
 
   const handleThemeState = () => {
@@ -17,51 +16,22 @@ const Header: React.FC = () => {
   };
 
   const handleThemeOption = async (theme: string) => {
-    theme = theme.toLowerCase();
-
-    await dispatch(
-      updateUserProfile({
-        theme,
-      })
-    );
-
+    const formData = new FormData();
+    formData.append("theme", theme.toLowerCase());
+    await dispatch(updateUserProfile(formData));
     setIsThemeOpen(false);
   };
 
-  const handleClickOutside = useCallback((e: MouseEvent) => {
-    if (
-      themeDropdownRef.current &&
-      !themeDropdownRef.current.contains(e.target as Node) &&
-      themeButtonRef.current &&
-      !themeButtonRef.current.contains(e.target as Node)
-    ) {
-      setIsThemeOpen(false);
-    }
-  }, []);
-
-  useEffect(() => {
-    if (isThemeOpen) {
-      document.addEventListener("mousedown", handleClickOutside);
-    } else {
-      document.removeEventListener("mousedown", handleClickOutside);
-    }
-
-    return () => {
-      document.removeEventListener("mousedown", handleClickOutside);
-    };
-  }, [isThemeOpen, handleClickOutside]);
-
   return (
     <header className={styles.header}>
-      {isThemeOpen && (
-        <Dropdown
-          ref={themeDropdownRef}
-          className={styles.themeDropdown}
-          isDropdownOpen={isThemeOpen}
-          options={["Light", "Dark", "Violet"]}
-          handleOption={handleThemeOption}
-        />
-      )}
+      <Dropdown
+        ref={themeButtonRef}
+        className={styles.themeDropdown}
+        isDropdownOpen={isThemeOpen}
+        options={[{ value: "Light" }, { value: "Dark" }, { value: "Violet" }]}
+        handleOption={handleThemeOption}
+        onClose={() => setIsThemeOpen(false)}
+      />
       <div className={styles.headerCont}>
         <div
           ref={themeButtonRef}

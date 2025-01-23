@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useRef } from "react";
 import { Card } from "../../types/cards";
 import { Icon } from "../Icon/Icon";
 import { formatDate } from "../../service/formatDate";
@@ -7,10 +7,15 @@ import styles from "./CardItem.module.css";
 import { priorityColor } from "../../constants";
 import ModalWindow from "../ModalWindow/ModalWindow";
 import { useAppDispatch, useAppSelector } from "../../hooks/auth";
-import { selectColumn, selectIsLoading } from "../../redux/boards/selectors";
+import {
+  selectBoard,
+  selectColumn,
+  selectIsLoading,
+} from "../../redux/boards/selectors";
 import ModalCard from "../ModalCard/ModalCard";
 import { useParams } from "react-router-dom";
-import { deleteCard } from "../../redux/boards/operations";
+import { deleteCard, moveCard } from "../../redux/boards/operations";
+import Dropdown, { Option } from "../Dropdown/Dropdown";
 
 interface CardProps {
   card: Card;
@@ -49,7 +54,61 @@ const CardItem: React.FC<CardProps> = ({ card }) => {
     if (action === "delete") {
       await dispatch(deleteCard({ cardId: card.cardId }));
     }
+
+    if (action === "move") {
+      await dispatch(
+        moveCard({
+          cardData: {
+            columnId: selectedColumnId as string,
+          },
+          cardId: card.cardId,
+          oldColumnId: column?.columnId as string,
+        })
+      ).then(() => {
+        toggleDropdown();
+      });
+    }
   };
+
+  const [isDropdownOpen, setIsDropdownOpen] = useState<boolean>(false);
+  const toggleDropdown = () => {
+    setIsDropdownOpen(!isDropdownOpen);
+  };
+
+  const [selectedColumnId, setSelectedColumnId] = useState<string | null>(null);
+
+  useEffect(() => {
+    const moveCard = async () => {
+      await handleAction("move");
+    };
+
+    if (selectedColumnId) {
+      moveCard();
+    }
+  }, [selectedColumnId]);
+
+  const moveBtnRef = useRef<HTMLDivElement | null>(null);
+
+  const handleSelectColumn = (option: string | null) => {
+    if (option) {
+      setSelectedColumnId(option);
+    }
+  };
+
+  const board = useAppSelector(selectBoard(boardId));
+
+  let options: Option[] = [];
+  if (board) {
+    options = board.columns
+      .filter((optionColumn) => optionColumn.columnId !== column?.columnId)
+      .map((optionColumn) => {
+        return {
+          value: optionColumn.title,
+          label: <Icon id="move" size={14} />,
+          id: optionColumn.columnId,
+        };
+      });
+  }
 
   return (
     <li
@@ -90,7 +149,11 @@ const CardItem: React.FC<CardProps> = ({ card }) => {
           </div>
         </div>
         <div className={styles.actions}>
-          <div className={styles.actionCont}>
+          <div
+            ref={moveBtnRef}
+            className={styles.actionCont}
+            onClick={toggleDropdown}
+          >
             <Icon id="move" size={16} />
           </div>
           <div
@@ -105,6 +168,14 @@ const CardItem: React.FC<CardProps> = ({ card }) => {
           >
             <Icon id="trash" size={16} />
           </div>
+          <Dropdown
+            ref={moveBtnRef}
+            className={styles.themeDropdown}
+            isDropdownOpen={isDropdownOpen}
+            options={options}
+            handleOption={handleSelectColumn}
+            onClose={() => setIsDropdownOpen(false)}
+          />
         </div>
       </div>
 

@@ -327,3 +327,37 @@ export const deleteCard = createAsyncThunk<
     }
   }
 );
+
+export const moveCard = createAsyncThunk<
+  { card: Card; oldColumnId: string; newColumnId: string },
+  { cardData: EditCardData; cardId: string; oldColumnId: string },
+  { rejectValue: ErrorServerResponse | undefined }
+>("boards/moveCard", async (payload, { rejectWithValue, getState }) => {
+  try {
+    const store = getState() as RootState;
+    const token = store.auth.token;
+
+    if (!token) {
+      throw new Error();
+    }
+
+    const { data } = await editCardService(
+      payload.cardId,
+      payload.cardData,
+      token
+    );
+    const card = data.card;
+
+    return {
+      card: card,
+      newColumnId: payload.cardData.columnId ?? "",
+      oldColumnId: payload.oldColumnId,
+    };
+  } catch (err) {
+    if (axios.isAxiosError(err)) {
+      return rejectWithValue(err.response?.data);
+    }
+
+    throw err;
+  }
+});

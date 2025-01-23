@@ -1,4 +1,12 @@
 .option {
   cursor: pointer;
-  width: 64px;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.iconWrap {
+  display: flex;
+  align-items: center;
+  justify-content: center;
 }
