@@ -19,8 +19,17 @@ import {
   deleteColumnService,
   editColumnService,
 } from "../../service/columns";
-import { AddCardData, Card, EditCardData } from "../../types/cards";
-import { addCardService, editCardService } from "../../service/cards";
+import {
+  AddCardData,
+  Card,
+  DeleteCardData,
+  EditCardData,
+} from "../../types/cards";
+import {
+  addCardService,
+  deleteCardService,
+  editCardService,
+} from "../../service/cards";
 
 export const createBoard = createAsyncThunk<
   Board,
@@ -290,3 +299,31 @@ export const editCard = createAsyncThunk<
     throw err;
   }
 });
+
+export const deleteCard = createAsyncThunk<
+  string,
+  DeleteCardData,
+  { rejectValue: ErrorServerResponse | undefined }
+>(
+  "boards/deleteCard",
+  async (deleteCardData, { rejectWithValue, getState }) => {
+    try {
+      const store = getState() as RootState;
+      const token = store.auth.token;
+
+      if (!token) {
+        throw new Error();
+      }
+
+      await deleteCardService(deleteCardData, token);
+
+      return deleteCardData.cardId;
+    } catch (err) {
+      if (axios.isAxiosError(err)) {
+        return rejectWithValue(err.response?.data);
+      }
+
+      throw err;
+    }
+  }
+);

@@ -6,10 +6,11 @@ import Ellipsis from "react-ellipsis-component";
 import styles from "./CardItem.module.css";
 import { priorityColor } from "../../constants";
 import ModalWindow from "../ModalWindow/ModalWindow";
-import { useAppSelector } from "../../hooks/auth";
+import { useAppDispatch, useAppSelector } from "../../hooks/auth";
 import { selectColumn, selectIsLoading } from "../../redux/boards/selectors";
 import ModalCard from "../ModalCard/ModalCard";
 import { useParams } from "react-router-dom";
+import { deleteCard } from "../../redux/boards/operations";
 
 interface CardProps {
   card: Card;
@@ -38,9 +39,15 @@ const CardItem: React.FC<CardProps> = ({ card }) => {
     setIsEditModalOpen(status);
   };
 
-  const handleAction = (action: "edit" | "delete" | "move") => {
+  const dispatch = useAppDispatch();
+
+  const handleAction = async (action: "edit" | "delete" | "move") => {
     if (action === "edit") {
       toggleEditModal(true);
+    }
+
+    if (action === "delete") {
+      await dispatch(deleteCard({ cardId: card.cardId }));
     }
   };
 
@@ -92,7 +99,10 @@ const CardItem: React.FC<CardProps> = ({ card }) => {
           >
             <Icon id="pencil" size={16} />
           </div>
-          <div className={styles.actionCont}>
+          <div
+            onClick={() => handleAction("delete")}
+            className={styles.actionCont}
+          >
             <Icon id="trash" size={16} />
           </div>
         </div>
@@ -129,4 +139,4 @@ const CardItem: React.FC<CardProps> = ({ card }) => {
   );
 };
 
-export default React.memo(CardItem);
+export default CardItem;

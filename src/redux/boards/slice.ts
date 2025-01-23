@@ -5,6 +5,7 @@ import {
   addColumn,
   createBoard,
   deleteBoard,
+  deleteCard,
   deleteColumn,
   editBoard,
   editCard,
@@ -208,6 +209,30 @@ const slice = createSlice({
       })
       .addCase(editCard.rejected, (state, action) => {
         state.error = action.payload?.message || "Failed to edit card";
+        state.isLoading = false;
+      })
+      .addCase(deleteCard.pending, (state) => {
+        state.error = null;
+        state.isLoading = true;
+      })
+      .addCase(deleteCard.fulfilled, (state, action) => {
+        state.boards = state.boards.map((board) => {
+          return {
+            ...board,
+            columns: board.columns.map((column) => {
+              return {
+                ...column,
+                cards: column.cards.filter((card) => {
+                  return card.cardId !== action.payload;
+                }),
+              };
+            }),
+          };
+        });
+        state.isLoading = false;
+      })
+      .addCase(deleteCard.rejected, (state, action) => {
+        state.error = action.payload?.message || "Failed to delete card";
         state.isLoading = false;
       });
   },

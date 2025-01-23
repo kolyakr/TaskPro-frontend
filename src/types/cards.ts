@@ -23,3 +23,7 @@ export interface EditCardData {
   deadline?: Date;
   columnId?: string;
 }
+
+export interface DeleteCardData {
+  cardId: string;
+}

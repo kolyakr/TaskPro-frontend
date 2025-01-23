@@ -1,5 +1,5 @@
 import axios from "axios";
-import { AddCardData, EditCardData } from "../types/cards";
+import { AddCardData, DeleteCardData, EditCardData } from "../types/cards";
 
 const instance = axios.create({
   baseURL: "http://localhost:3000/cards",
@@ -28,4 +28,15 @@ export const editCardService = async (
   });
 
   return data;
+};
+
+export const deleteCardService = async (
+  payload: DeleteCardData,
+  token: string
+) => {
+  await instance.delete(`/${payload.cardId}`, {
+    headers: {
+      Authorization: `Bearer ${token}`,
+    },
+  });
 };
