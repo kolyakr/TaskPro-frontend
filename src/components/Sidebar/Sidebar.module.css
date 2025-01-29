@@ -36,6 +36,8 @@
   padding-bottom: 14px;
   cursor: pointer;
   margin-bottom: 5px;
+  padding-left: 2px;
+  padding-right: 2px;
 }
 .createBoardText {
   max-width: 76px;
@@ -111,4 +113,61 @@
   gap: 8px;
   align-items: center;
   justify-content: center;
+}
+
+.createBoardCont:hover {
+  background-color: rgba(255, 255, 255, 0.1);
+  transition: background-color 0.3s ease-in-out;
+}
+
+@keyframes modalFadeIn {
+  from {
+    opacity: 0;
+    transform: scale(0.9);
+  }
+  to {
+    opacity: 1;
+    transform: scale(1);
+  }
+}
+
+.modalBtn {
+  transition: background-color 0.3s ease-in-out, transform 0.2s ease-in-out;
+}
+
+.modalBtn:hover {
+  background-color: var(--modal-btn-hover);
+  transform: scale(1.05);
+}
+
+.needHelpIconCont {
+  transition: transform 0.3s ease-in-out;
+}
+
+.needHelpIconCont:hover {
+  transform: rotate(5deg);
+}
+
+.logoutCont {
+  transition: transform 0.3s ease-in-out;
+}
+
+.logoutCont:hover {
+  transform: translateX(-5px);
+}
+
+.logoCont {
+  transition: transform 0.3s ease-in-out;
+}
+
+.logoCont:hover {
+  transform: scale(1.05);
+}
+
+.smilingTreeImg {
+  transition: transform 0.3s ease-in-out;
+}
+
+.smilingTreeImg:hover {
+  transform: rotate(5deg) scale(1.05);
 }

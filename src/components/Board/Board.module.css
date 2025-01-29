@@ -59,3 +59,12 @@
   align-items: center;
   justify-content: center;
 }
+
+.addBtn {
+  transition: background-color 0.3s ease-in-out, transform 0.2s ease-in-out;
+}
+
+.addBtn:hover {
+  background-color: var(--add-column-hover-color);
+  transform: scale(1.05);
+}

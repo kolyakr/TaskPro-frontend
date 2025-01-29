@@ -10,3 +10,20 @@
   align-items: center;
   justify-content: center;
 }
+
+.option {
+  transition: background-color 0.3s ease-in-out, transform 0.2s ease-in-out;
+}
+
+.option:hover {
+  background-color: rgba(255, 255, 255, 0.1);
+  transform: scale(1.05);
+}
+
+.iconWrap {
+  transition: transform 0.3s ease-in-out;
+}
+
+.iconWrap:hover {
+  transform: rotate(10deg);
+}

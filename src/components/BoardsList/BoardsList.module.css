@@ -74,3 +74,37 @@
   fill: black;
   stroke: black;
 }
+
+.item {
+  transition: background-color 0.3s ease-in-out, transform 0.2s ease-in-out;
+}
+
+.item:hover {
+  background-color: rgba(255, 255, 255, 0.1);
+  transform: scale(1.02);
+}
+
+.selectedItem {
+  transition: border-right 0.3s ease-in-out, transform 0.2s ease-in-out;
+}
+
+.selectedItem:hover {
+  border-right: 6px solid var(--selected-item-border);
+  transform: scale(1.03);
+}
+
+.actionsCont div {
+  transition: transform 0.3s ease-in-out;
+}
+
+.actionsCont div:hover {
+  transform: scale(1.2);
+}
+
+.list::-webkit-scrollbar-thumb {
+  transition: background-color 0.3s ease-in-out;
+}
+
+.list::-webkit-scrollbar-thumb:hover {
+  background-color: var(--hover-scrollbar-color);
+}

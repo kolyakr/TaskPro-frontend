@@ -125,3 +125,29 @@
 .themeDropdown::-webkit-scrollbar-thumb:hover {
   background-color: var(--scroll-btn-color);
 }
+
+.card {
+  transition: transform 0.2s ease-in-out, box-shadow 0.3s ease-in-out;
+}
+
+.card:hover {
+  transform: scale(1.02);
+  box-shadow: 0 4px 10px rgba(255, 255, 255, 0.1);
+}
+
+.actionCont {
+  transition: transform 0.3s ease-in-out;
+}
+
+.actionCont:hover {
+  transform: scale(1.2);
+}
+
+.themeDropdown {
+  transition: opacity 0.3s ease-in-out, transform 0.2s ease-in-out;
+}
+
+.themeDropdown:hover {
+  transform: translateY(-2px);
+  opacity: 0.95;
+}

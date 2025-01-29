@@ -42,3 +42,28 @@
   color: var(--dropdown-color);
   border: 1px solid var(--dropdown-color);
 }
+
+.themeCont {
+  transition: transform 0.3s ease-in-out;
+}
+
+.themeCont:hover {
+  transform: scale(1.05);
+}
+
+.themeDropdown {
+  transition: opacity 0.3s ease-in-out, transform 0.2s ease-in-out;
+}
+
+.themeDropdown:hover {
+  transform: translateY(-2px);
+  opacity: 0.95;
+}
+
+.header {
+  transition: background-color 0.3s ease-in-out;
+}
+
+.header:hover {
+  background-color: var(--header-hover-background-color);
+}

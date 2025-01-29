@@ -52,3 +52,33 @@
   align-items: center;
   justify-content: center;
 }
+
+.column {
+  transition: transform 0.2s ease-in-out;
+}
+
+.column:hover {
+  transform: scale(1.02);
+}
+
+.columnHeader {
+  transition: background-color 0.3s ease-in-out;
+}
+
+.addBtn {
+  transition: background-color 0.3s ease-in-out, transform 0.2s ease-in-out;
+}
+
+.addBtn:hover {
+  transform: scale(1.05);
+}
+
+.deleteColumn,
+.editColumn {
+  transition: transform 0.3s ease-in-out;
+}
+
+.deleteColumn:hover,
+.editColumn:hover {
+  transform: scale(1.2);
+}

@@ -43,3 +43,11 @@ body {
   align-items: center;
   justify-content: center;
 }
+
+.closeBtn {
+  transition: transform 0.3s ease-in-out;
+}
+
+.closeBtn:hover {
+  transform: rotate(90deg);
+}
