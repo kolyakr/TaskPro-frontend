@@ -17,6 +17,7 @@
   line-height: 27px;
   letter-spacing: -0.02em;
   text-align: left;
+  color: var(--chevron-color);
 }
 .filterText {
   font-size: 14px;
@@ -24,6 +25,7 @@
   line-height: 21px;
   letter-spacing: -0.02em;
   text-align: left;
+  color: var(--chevron-color);
 }
 
 .modalHeader {

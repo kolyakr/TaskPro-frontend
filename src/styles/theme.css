@@ -7,9 +7,9 @@
   --scroll-background-color: #1f1f1f;
   --scroll-btn-color: #121212;
   --need-help-background-color: #1f1f1f;
-  --modal-background-color: #151515;
-  --modal-add-btn-background-color: #161616;
-  --modal-add-btn-color: #ffffff;
+  --modal-background-color: #1f1f1f;
+  --modal-add-btn-background-color: #bedbb0;
+  --modal-add-btn-color: #161616;
   --not-active-color: #ffffff80;
   --add-column-color: #121212;
   --sidebar-add-btn-fill: #bedbb0;
@@ -19,6 +19,18 @@
   --modal-add-btn-fill: #161616;
   --modal-add-btn-stroke: #ffffff;
   --add-column-background-color: #bedbb0;
+  --logo-background-color: #1f1f1f;
+  --logo-color: #fff;
+  --header-text-color: #ffffff;
+  --chevron-color: #ffffff;
+  --sidebar-grey-color: #ffffff80;
+  --selected-item-background: #1f1f1f;
+  --selected-item-border: #bedbb0;
+  --pencil-trash-color: #ffffff80;
+  --dropdown-background-color: #1f1f1f;
+  --dropdown-color: #ffffff80;
+  --drodown-selected-color: #bedbb0;
+  --filter-color: #ffffffcc;
 }
 
 [data-theme="light"] {
@@ -33,7 +45,7 @@
   --modal-background-color: #fcfcfc;
   --modal-add-btn-background-color: #161616;
   --modal-add-btn-color: #ffffff;
-  --not-active-color: #ffffff80;
+  --not-active-color: #16161680;
   --add-column-color: #ffffff;
   --sidebar-add-btn-fill: #bedbb0;
   --sidebar-add-btn-stroke: #121212;
@@ -42,13 +54,25 @@
   --modal-add-btn-fill: #161616;
   --modal-add-btn-stroke: #ffffff;
   --add-column-background-color: #bedbb0;
+  --logo-background-color: #1f1f1f;
+  --logo-color: #fff;
+  --header-text-color: #161616;
+  --chevron-color: #161616;
+  --sidebar-grey-color: #16161680;
+  --selected-item-background: #f6f6f7;
+  --selected-item-border: #bedbb0;
+  --pencil-trash-color: #16161680;
+  --dropdown-background-color: #fcfcfc;
+  --dropdown-color: #161616;
+  --drodown-selected-color: #bedbb0;
+  --filter-color: #161616cc;
 }
 
 [data-theme="violet"] {
   --screens-background-color: #d6d8ff;
   --sidebar-background-color: #5255bc;
   --header-background-color: #ffffff;
-  --text-color: #161616;
+  --text-color: #ffffff;
   --create-board-btn-color: #b8bcfd;
   --scroll-background-color: #ffffff;
   --scroll-btn-color: #b8bcfd;
@@ -65,4 +89,16 @@
   --modal-add-btn-fill: #ffffff;
   --modal-add-btn-stroke: #5255bc;
   --add-column-background-color: #5255bc;
+  --logo-background-color: #ecedfd;
+  --logo-color: #5255bc;
+  --header-text-color: #161616;
+  --chevron-color: #161616;
+  --sidebar-grey-color: #ffffff80;
+  --selected-item-background: #ffffff80;
+  --selected-item-border: #ffffff;
+  --pencil-trash-color: #16161680;
+  --dropdown-background-color: #fcfcfc;
+  --dropdown-color: #161616;
+  --drodown-selected-color: #5255bc;
+  --filter-color: #161616cc;
 }

@@ -46,7 +46,7 @@ export const backgroundImages = [
 ];
 
 export const priorityColor = {
-  "without priority": "#FFFFFF4D",
+  "without priority": "grey",
   low: "#8FA1D0",
   medium: "#E09CB5",
   high: "#BEDBB0",

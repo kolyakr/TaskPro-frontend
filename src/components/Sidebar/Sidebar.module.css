@@ -23,18 +23,19 @@
   line-height: 18px;
   letter-spacing: -0.02em;
   text-align: left;
-  color: #ffffff80;
+  color: var(--sidebar-grey-color);
   margin-bottom: 8px;
 }
 .createBoardCont {
   display: flex;
   justify-content: space-between;
   align-items: center;
-  border-top: 1px solid #ffffff1a;
-  border-bottom: 1px solid #ffffff1a;
+  border-top: 1px solid var(--sidebar-grey-color);
+  border-bottom: 1px solid var(--sidebar-grey-color);
   padding-top: 14px;
   padding-bottom: 14px;
   cursor: pointer;
+  margin-bottom: 5px;
 }
 .createBoardText {
   max-width: 76px;

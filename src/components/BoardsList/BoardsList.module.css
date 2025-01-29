@@ -9,6 +9,7 @@
   margin-right: -24px;
   margin-left: -24px;
   margin-bottom: 40px;
+  color: var(--text-color);
 }
 
 .list::-webkit-scrollbar {
@@ -41,8 +42,8 @@
   padding-right: 24px;
 }
 .selectedItem {
-  background-color: #1f1f1f;
-  border-right: 4px solid #bedbb0;
+  background-color: var(--selected-item-background);
+  border-right: 4px solid var(--selected-item-border);
   border-radius: 4px;
 }
 .titleCont,

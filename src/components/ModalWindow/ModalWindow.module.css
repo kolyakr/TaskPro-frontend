@@ -34,8 +34,8 @@ body {
   line-height: 21px;
   letter-spacing: -0.02em;
   text-align: center;
-  color: #161616;
-  background-color: #bedbb0;
+  color: var(--modal-add-btn-color);
+  background-color: var(--modal-add-btn-background-color);
 }
 
 .loaderCont {

@@ -98,7 +98,8 @@ const CardItem: React.FC<CardProps> = ({ card }) => {
   const board = useAppSelector(selectBoard(boardId));
 
   let options: Option[] = [];
-  if (board) {
+  console.log(board);
+  if (board && board.columns.length > 1) {
     options = board.columns
       .filter((optionColumn) => optionColumn.columnId !== column?.columnId)
       .map((optionColumn) => {
@@ -108,6 +109,8 @@ const CardItem: React.FC<CardProps> = ({ card }) => {
           id: optionColumn.columnId,
         };
       });
+  } else {
+    options.push({ value: "No columns to move in" });
   }
 
   return (
