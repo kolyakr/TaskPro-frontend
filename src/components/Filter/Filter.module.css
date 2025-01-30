@@ -74,7 +74,7 @@
   text-align: left;
   text-decoration-line: underline;
   text-decoration-style: solid;
-  color: #ffffff80;
+  color: grey;
 }
 .list {
   display: flex;

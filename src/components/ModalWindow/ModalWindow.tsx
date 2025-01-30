@@ -3,6 +3,8 @@ import ReactModal from "react-modal";
 import { Icon } from "../Icon/Icon";
 import styles from "./ModalWindow.module.css";
 import Loader from "../Loader/Loader";
+import { useAppSelector } from "../../hooks/auth";
+import { selectUser } from "../../redux/auth/selectors";
 
 interface ModalWindowProps {
   isOpen: boolean;
@@ -29,8 +31,15 @@ const ModalWindow: React.FC<ModalWindowProps> = ({
   isLoading,
   formId,
 }) => {
+  const user = useAppSelector(selectUser);
+  const backgroundColor = user.theme === "dark" ? "#151515" : "#FCFCFC";
+  const color = user.theme === "dark" ? "#FCFCFC" : "#151515";
+  const submitBackgroundColor = user.theme === "violet" ? "#5255BC" : "#bedbb0";
+  const submitColor = user.theme === "violet" ? "#FFFFFF" : "#161616";
+
   return (
     <ReactModal
+      key={user.theme}
       shouldCloseOnEsc={true}
       shouldCloseOnOverlayClick={true}
       isOpen={isOpen}
@@ -39,7 +48,7 @@ const ModalWindow: React.FC<ModalWindowProps> = ({
         content: {
           overflowY: "auto",
           position: "relative",
-          backgroundColor: "var(--modal-background-color)",
+          backgroundColor: backgroundColor,
           maxWidth: width || "400px",
           maxHeight: height || "0px",
           width: "100%",
@@ -49,6 +58,7 @@ const ModalWindow: React.FC<ModalWindowProps> = ({
           display: "flex",
           justifyContent: "space-between",
           flexDirection: "column",
+          color: color,
         },
         overlay: {
           position: "fixed",
@@ -67,7 +77,11 @@ const ModalWindow: React.FC<ModalWindowProps> = ({
       <div className={styles.modalHeader}>
         <p className={styles.modalTitle}>{title}</p>
         <div onClick={closeModal} className={styles.closeBtn}>
-          <Icon size={18} id="x-close" />
+          <Icon
+            key={user.theme}
+            size={18}
+            id={user.theme === "dark" ? "x-close" : "x-close-black"}
+          />
         </div>
       </div>
       {children}
@@ -77,7 +91,16 @@ const ModalWindow: React.FC<ModalWindowProps> = ({
             <Loader />
           </div>
         ) : (
-          <button type="submit" form={formId} className={styles.submitBtn}>
+          <button
+            key={user.theme}
+            type="submit"
+            form={formId}
+            className={styles.submitBtn}
+            style={{
+              backgroundColor: submitBackgroundColor,
+              color: submitColor,
+            }}
+          >
             {submitBtnChildren}
           </button>
         ))}

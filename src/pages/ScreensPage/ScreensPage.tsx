@@ -12,7 +12,15 @@ const ScreensPage: React.FC = () => {
   const board = useAppSelector(selectBoard(boardId));
 
   return (
-    <main className={styles.page}>
+    <main
+      className={styles.page}
+      style={{
+        backgroundImage:
+          board?.background === "/src/assets/images/default_background-1x.png"
+            ? "none"
+            : `url(${board?.background})`,
+      }}
+    >
       <Filter title={board?.title} />
       {board ? <Board /> : <StartText />}
     </main>

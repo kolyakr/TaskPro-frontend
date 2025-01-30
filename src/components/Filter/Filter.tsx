@@ -4,9 +4,10 @@ import { Icon } from "../Icon/Icon";
 import ReactModal from "react-modal";
 import { priorityColor } from "../../constants";
 import { Priority } from "../../types";
-import { useAppDispatch } from "../../hooks/auth";
+import { useAppDispatch, useAppSelector } from "../../hooks/auth";
 import { getBoards } from "../../redux/boards/operations";
 import { saveToLocalStorage } from "../../service/localStorage";
+import { selectUser } from "../../redux/auth/selectors";
 
 interface FilterProps {
   title: string | undefined;
@@ -46,6 +47,10 @@ const Filter: React.FC<FilterProps> = ({ title }) => {
     }
   }, [selectedFilter]);
 
+  const user = useAppSelector(selectUser);
+  const backgroundColor = user.theme === "dark" ? "#151515" : "#FCFCFC";
+  const color = user.theme === "dark" ? "#FCFCFC" : "#151515";
+
   return (
     <div>
       <div className={styles.filterSection}>
@@ -68,7 +73,7 @@ const Filter: React.FC<FilterProps> = ({ title }) => {
           content: {
             overflowY: "auto",
             position: "relative",
-            backgroundColor: "var(--modal-background-color)",
+            backgroundColor: backgroundColor,
             maxWidth: "300px",
             maxHeight: "234px",
             width: "100%",
@@ -78,6 +83,7 @@ const Filter: React.FC<FilterProps> = ({ title }) => {
             display: "flex",
             justifyContent: "space-between",
             flexDirection: "column",
+            color: color,
           },
           overlay: {
             position: "fixed",
@@ -99,7 +105,10 @@ const Filter: React.FC<FilterProps> = ({ title }) => {
             onClick={() => setIsFilterOpen(false)}
             className={styles.closeBtn}
           >
-            <Icon size={18} id="x-close" />
+            <Icon
+              size={18}
+              id={user.theme === "dark" ? "x-close" : "x-close-black"}
+            />
           </div>
         </div>
         <div className={styles.filterOptions}>
