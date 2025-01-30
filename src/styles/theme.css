@@ -31,6 +31,8 @@
   --dropdown-color: #ffffff80;
   --drodown-selected-color: #bedbb0;
   --filter-color: #ffffffcc;
+  --start-text-color: #ffffff80;
+  --start-text-span-color: #bedbb0;
 }
 
 [data-theme="light"] {
@@ -66,6 +68,8 @@
   --dropdown-color: #161616;
   --drodown-selected-color: #bedbb0;
   --filter-color: #161616cc;
+  --start-text-color: #161616b2;
+  --start-text-span-color: #bedbb0;
 }
 
 [data-theme="violet"] {
@@ -101,4 +105,6 @@
   --dropdown-color: #161616;
   --drodown-selected-color: #5255bc;
   --filter-color: #161616cc;
+  --start-text-color: #161616b2;
+  --start-text-span-color: #5255bc;
 }

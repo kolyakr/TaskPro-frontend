@@ -7,10 +7,10 @@
   line-height: 18px;
   letter-spacing: -0.02em;
   text-align: center;
-  color: #ffffff80;
+  color: var(--start-text-color);
   max-width: 486px;
   margin: 0 auto;
 }
 .startTextSpan {
-  color: #bedbb0;
+  color: var(--start-text-span-color);
 }

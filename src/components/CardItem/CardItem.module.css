@@ -101,14 +101,14 @@
   max-height: 107px;
   padding: 18px 18px;
   border-radius: 8px;
-  background-color: #151515;
+  background-color: var(--dropdown-background-color);
   font-size: 14px;
   font-weight: 400;
   line-height: 21px;
   letter-spacing: -0.02em;
   text-align: left;
-  color: #ffffff80;
-  border: 1px solid #ffffff80;
+  color: var(--dropdown-color);
+  border: 1px solid var(--dropdown-color);
   overflow-y: auto;
 }
 
