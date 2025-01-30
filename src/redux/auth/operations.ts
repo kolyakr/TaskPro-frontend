@@ -37,8 +37,6 @@ export const registerUser = createAsyncThunk<
       password: registerData.password,
     });
 
-    console.log("after login: ", response);
-
     return { user: response.data.user, accessToken: response.data.accessToken };
   } catch (err) {
     if (axios.isAxiosError(err) && err.response) {

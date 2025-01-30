@@ -290,7 +290,6 @@ export const editCard = createAsyncThunk<
       card: card,
       columnId: payload.cardData.columnId ?? "",
     };
-    console.log(response);
 
     return response;
   } catch (err) {
