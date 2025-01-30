@@ -3,7 +3,7 @@ import { CreateBoardData, EditBoardData } from "../types/boards";
 import { Priority } from "../types";
 
 const instance = axios.create({
-  baseURL: "http://localhost:3000/boards",
+  baseURL: "https://taskpro-backend-uvko.onrender.com/boards",
   withCredentials: true,
 });
 

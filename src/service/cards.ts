@@ -2,7 +2,7 @@ import axios from "axios";
 import { AddCardData, DeleteCardData, EditCardData } from "../types/cards";
 
 const instance = axios.create({
-  baseURL: "http://localhost:3000/cards",
+  baseURL: "https://taskpro-backend-uvko.onrender.com/cards",
   withCredentials: true,
 });
 

@@ -2,7 +2,7 @@ import axios from "axios";
 import { AddAndEditColumnData } from "../types/columns";
 
 const instance = axios.create({
-  baseURL: "http://localhost:3000/columns",
+  baseURL: "https://taskpro-backend-uvko.onrender.com/columns",
   withCredentials: true,
 });
 
